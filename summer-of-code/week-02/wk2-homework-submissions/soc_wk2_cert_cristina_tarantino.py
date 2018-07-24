@@ -19,23 +19,9 @@ def count_letters(text):
     return char_frequency_list
 
 
-filename = "../alice_in_wonderland.txt"
-# source http://www.gutenberg.org/files/11/11-0.txt
-
-
-# open the file in read only mode
-# source https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files
-with open(filename) as f:
-    read_data = f.read()
-f.closed
-
-# print(count_letters(raw))
-for key, value in count_letters(read_data).items():
-    print("Number of letter " + key + ": " + str(value))
-
 # 2. numbers to letters
-for i in range(65, 65+2*26)
-    print(i, " stand for ", chr(i))
+# for i in range(65, 65+2*26)
+#     print(i, " stand for ", chr(i))
 
 # fix the code to only show A-Z and a-z with a function
 
