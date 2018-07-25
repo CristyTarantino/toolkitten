@@ -3,13 +3,16 @@
 
 # Python unittest reference https://docs.python.org/3/library/unittest.html
 
+import io
 import unittest
+import unittest.mock
 
 from soc_wk2_cert_cristina_tarantino import count_letters_list
+from soc_wk2_cert_cristina_tarantino import numbers_to_letters
 from soc_wk2_cert_cristina_tarantino import count_letters_dict
 
 
-class TestCountLetters(unittest.TestCase):
+class TestCountLettersToList(unittest.TestCase):
     def test_count_letters_list_string(self):
         test_text = "Ciao io sono Cristina"
         expected_result = [['a', 2], ['b', 0], ['c', 2], ['d', 0], ['e', 0], ['f', 0], ['g', 0], ['h', 0], ['i', 4], ['j', 0], ['k', 0], ['l', 0], ['m', 0], ['n', 2], ['o', 4], ['p', 0], ['q', 0], ['r', 1], ['s', 2], ['t', 1], ['u', 0], ['v', 0], ['w', 0], ['x', 0], ['y', 0], ['z', 0]]
@@ -30,6 +33,20 @@ class TestCountLetters(unittest.TestCase):
 
         self.assertEqual(count_letters_list(read_data), expected_result)
 
+
+# I don't understand this test class code at the moment but it allows me to test the function
+# https://stackoverflow.com/questions/33767627/how-to-write-a-unittest-for-console-print
+class TestNumbersToLetters(unittest.TestCase):
+    @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+    def assert_stdout(self, n, expected_output, mock_stdout):
+        numbers_to_letters()
+        self.assertEqual(mock_stdout.getvalue(), expected_output)
+
+    def test_numbers_to_letters(self):
+        self.assert_stdout(2, 'A\nB\nC\nD\nE\nF\nG\nH\nI\nJ\nK\nL\nM\nN\nO\nP\nQ\nR\nS\nT\nU\nV\nW\nX\nY\nZ\na\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk\nl\nm\nn\no\np\nq\nr\ns\nt\nu\nv\nw\nx\ny\nz\n')
+
+
+class TestCountLettersToDic(unittest.TestCase):
     def test_count_letters_dict_string(self):
         test_text = "Ciao io sono Cristina"
         expected_result = {'a': 2, 'b': 0, 'c': 2, 'd': 0, 'e': 0, 'f': 0, 'g': 0, 'h': 0, 'i': 4, 'j': 0, 'k': 0, 'l': 0, 'm': 0, 'n': 2, 'o': 4, 'p': 0, 'q': 0, 'r': 1, 's': 2, 't': 1, 'u': 0, 'v': 0, 'w': 0, 'x': 0, 'y': 0, 'z': 0}

@@ -31,9 +31,27 @@ def count_letters_list(text):
 
 
 # DAY 2
-# 2. numbers to letters. Make a function that prints A-Z and a-z
-# for i in range(65, 65+2*26)
+
+# 2. There is something small that needs fixing. Can you spot it and fix it? (Hint, we only want A-Z and a-z)
+# original loop
+# for i in range(65,65+2*26):
+#     print(i, " stands for ", chr(i))
+
+print("\nExercise Fix the loop for correct char range")
+
+# for i in range(65, 65 + 2 * 29):
+#     if 90 < i < 97:
+#         continue
 #     print(i, " stand for ", chr(i))
+
+# 3. numbers to letters. Make a function that prints A-Z and a-z
+
+
+def numbers_to_letters():
+    for c in range(65, 65 + 2 * 29):
+        if 90 < c < 97:
+            continue
+        print(chr(c))
 
 
 # 3. Make a function that asks the user for a message, and turns it into a list of numbers. (It's a cypher ;))
