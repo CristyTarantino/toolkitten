@@ -70,3 +70,4 @@ venv
 # nltk
 nltk_data
 .ipynb_checkpoints
+*.pyc

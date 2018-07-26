@@ -39,13 +39,14 @@ def count_letters_list(text):
 
 print("\nExercise Fix the loop for correct char range")
 
-# for i in range(65, 65 + 2 * 29):
-#     if 90 < i < 97:
-#         continue
-#     print(i, " stand for ", chr(i))
+for i in range(65, 65 + 2 * 29):
+    if 90 < i < 97:
+        continue
+    # Get the character given by an ASCII number
+    print(i, " stand for ", chr(i))
+
 
 # 3. numbers to letters. Make a function that prints A-Z and a-z
-
 
 def numbers_to_letters():
     for c in range(65, 65 + 2 * 29):
@@ -54,8 +55,18 @@ def numbers_to_letters():
         print(chr(c))
 
 
-# 3. Make a function that asks the user for a message, and turns it into a list of numbers. (It's a cypher ;))
+# 4. Make a function that asks the user for a message, and turns it into a list of numbers. (It's a cypher ;))
 # "I LOVE YOU" [ 73, , 76, ...]
+
+def cypher_message():
+    message = input("\nType a message for the love of your life: ")
+    char_list = []
+
+    for c in message:
+        # Get the ASCII number of a character
+        char_list.append(ord(c))
+
+    return char_list
 
 
 # 4. Write a function that does a ceaser cypher (Google), ask the user a number, and shift their message by that number.
