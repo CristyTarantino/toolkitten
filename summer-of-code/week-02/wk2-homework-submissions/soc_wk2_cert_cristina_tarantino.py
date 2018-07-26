@@ -96,8 +96,36 @@ def cypher_message():
 # 4. Write a function that does a ceaser cypher (Google), ask the user a number, and shift their message by that number.
 
 
-# 5. Write a function that prints out all elements of the above board,
+# 5. Write a function that prints out all elements of the below board,
 # starting from the first element of the first line, till the end. Each line should be read from beginning to end.
+
+M = "land"
+o = "water"
+
+world = [
+            [o,o,o,o,o,o,o,o,o,o,o],
+            [o,o,o,o,M,M,o,o,o,o,o],
+            [o,o,o,o,o,o,o,o,M,M,o],
+            [o,o,o,M,o,o,o,o,o,M,o],
+            [o,o,o,M,o,M,M,o,o,o,o],
+            [o,o,o,o,M,M,M,M,o,o,o],
+            [o,o,o,M,M,M,M,M,M,M,o],
+            [o,o,o,M,M,o,M,M,M,o,o],
+            [o,o,o,o,o,o,M,M,o,o,o],
+            [o,M,o,o,o,M,o,o,o,o,o],
+            [o,o,o,o,o,o,o,o,o,o,o]
+        ]
+
+
+def print_board(board):
+    for row in board:
+        for item in row:
+            print(item)
+
+# def print_board(board):
+#     for row in range(len(board)):
+#         for item in range(len(board)):
+#             print(board[item][row])
 
 
 # 6. Now write a function that prints out all elements in reverse.
@@ -164,7 +192,47 @@ def char_frequency_dict_only_present_alphas(text):
 
 
 # 13. Create a dictionary with your own personal details, feel free to be creative and funny so for example,
-# you could include key-value pairs with `quirky fact`, `fav quote`, `pet`. Practice adding, modifying, accesing.
+# you could include key-value pairs with `quirky fact`, `fav quote`, `pet`. Practice adding, modifying, accessing.
+
+print("\nExercise personal details dictionary")
+
+who_am_i = {
+    "name": "Cristina",
+    "surname": "Tarantino",
+    "hair": "brown",
+    "eyes": "brown",
+    "skin_type": "pail white",
+    "pet": "cat",
+    "fav_quote": "divide et impera",
+    "quirky fact": "I have dyslexia and I can code",
+    "children_num": 1,
+    "marital_status": "married"
+}
+
+print(who_am_i)
+
+# loop
+for k, v in who_am_i.items():
+    print(k, ":", v)
+
+print(who_am_i.keys())
+print(who_am_i.values())
+print(len(who_am_i))
+
+for i, k in enumerate(who_am_i):
+    print(i, k)
+
+del(who_am_i["skin_type"])
+
+print(sorted(who_am_i))
+
+who_am_i["skin_type"] = "ghost"
+
+print(who_am_i)
+
+who_am_i["skin_type"] = "pail white"
+
+print(who_am_i)
 
 
 # 14. Mapping with cities and states/regions in your country or some other country.
