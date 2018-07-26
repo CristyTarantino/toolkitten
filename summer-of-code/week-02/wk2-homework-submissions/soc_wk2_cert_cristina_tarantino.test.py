@@ -16,14 +16,14 @@ from io import StringIO
 import soc_wk2_cert_cristina_tarantino as homework
 
 
-class TestCountLettersToList(unittest.TestCase):
-    def test_count_letters_list_string(self):
+class TestCharFrequencyListFromAlphabet(unittest.TestCase):
+    def test_char_frequency_list_from_alphabet_string(self):
         test_text = "Ciao io sono Cristina"
         expected_result = [['a', 2], ['b', 0], ['c', 2], ['d', 0], ['e', 0], ['f', 0], ['g', 0], ['h', 0], ['i', 4], ['j', 0], ['k', 0], ['l', 0], ['m', 0], ['n', 2], ['o', 4], ['p', 0], ['q', 0], ['r', 1], ['s', 2], ['t', 1], ['u', 0], ['v', 0], ['w', 0], ['x', 0], ['y', 0], ['z', 0]]
 
-        self.assertEqual(homework.count_letters_list(test_text), expected_result)
+        self.assertEqual(homework.char_frequency_list_from_alphabet(test_text), expected_result)
 
-    def test_count_letters_list_file(self):
+    def test_char_frequency_list_from_alphabet_file(self):
         filename = "../alice_in_wonderland.txt"
         # source http://www.gutenberg.org/files/11/11-0.txt
 
@@ -35,7 +35,29 @@ class TestCountLettersToList(unittest.TestCase):
 
         expected_result = [['a', 9804], ['b', 1746], ['c', 3003], ['d', 5469], ['e', 15396], ['f', 2383], ['g', 2944], ['h', 7890], ['i', 8634], ['j', 235], ['k', 1290], ['l', 5211], ['m', 2466], ['n', 8053], ['o', 9480], ['p', 1968], ['q', 220], ['r', 6612], ['s', 7269], ['t', 12204], ['u', 3979], ['v', 963], ['w', 2952], ['x', 176], ['y', 2584], ['z', 80]]
 
-        self.assertEqual(homework.count_letters_list(read_data), expected_result)
+        self.assertEqual(homework.char_frequency_list_from_alphabet(read_data), expected_result)
+
+
+class TestCharFrequencyListOnlyPresentAlphas(unittest.TestCase):
+    def test_char_frequency_dict_only_present_alphas_string(self):
+        test_text = "Ciao io sono Cristina"
+        expected_result = [['a', 2], ['c', 2], ['i', 4], ['n', 2], ['o', 4], ['r', 1], ['s', 2], ['t', 1]]
+
+        self.assertEqual(homework.char_frequency_list_only_present_alphas(test_text), expected_result)
+
+    # def test_char_frequency_dict_only_present_alphas_file(self):
+    #     filename = "../alice_in_wonderland.txt"
+    #     # source http://www.gutenberg.org/files/11/11-0.txt
+    #
+    #     # open the file in read only mode
+    #     # source https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files
+    #     with open(filename) as f:
+    #         read_data = f.read()
+    #     f.closed
+    #
+    #     expected_result = [['a', 9804], ['b', 1746], ['c', 3003], ['d', 5469], ['e', 15396], ['f', 2383], ['g', 2944], ['h', 7890], ['i', 8634], ['j', 235], ['k', 1290], ['l', 5211], ['m', 2466], ['n', 8053], ['o', 9480], ['p', 1968], ['q', 220], ['r', 6612], ['s', 7269], ['t', 12204], ['u', 3979], ['v', 963], ['w', 2952], ['x', 176], ['y', 2584], ['z', 80]]
+    #
+    #     self.assertEqual(homework.char_frequency_list_only_present_alphas(read_data), expected_result)
 
 
 # https://learnbyexample.gitbooks.io/python-basics/content/Testing.html#using-unittest.mock-to-test-user-input-and-program-output
@@ -59,13 +81,13 @@ class TestCypherMessage(unittest.TestCase):
             self.assertEqual(homework.cypher_message(), expected_result)
 
 
-class TestCountLettersToDic(unittest.TestCase):
-    def test_count_letters_dict_string(self):
+class TestCharFrequencyDictFromAlphabet(unittest.TestCase):
+    def test_char_frequency_dict_from_alphabet_string(self):
         test_text = "Ciao io sono Cristina"
         expected_result = {'a': 2, 'b': 0, 'c': 2, 'd': 0, 'e': 0, 'f': 0, 'g': 0, 'h': 0, 'i': 4, 'j': 0, 'k': 0, 'l': 0, 'm': 0, 'n': 2, 'o': 4, 'p': 0, 'q': 0, 'r': 1, 's': 2, 't': 1, 'u': 0, 'v': 0, 'w': 0, 'x': 0, 'y': 0, 'z': 0}
-        self.assertEqual(homework.count_letters_dict(test_text), expected_result)
+        self.assertEqual(homework.char_frequency_dict_from_alphabet(test_text), expected_result)
 
-    def test_count_letters_dict_file(self):
+    def test_char_frequency_dict_from_alphabet_file(self):
         filename = "../alice_in_wonderland.txt"
         # source http://www.gutenberg.org/files/11/11-0.txt
 
@@ -77,7 +99,28 @@ class TestCountLettersToDic(unittest.TestCase):
 
         expected_result = {'a': 9804, 'b': 1746, 'c': 3003, 'd': 5469, 'e': 15396, 'f': 2383, 'g': 2944, 'h': 7890, 'i': 8634, 'j': 235, 'k': 1290, 'l': 5211, 'm': 2466, 'n': 8053, 'o': 9480, 'p': 1968, 'q': 220, 'r': 6612, 's': 7269, 't': 12204, 'u': 3979, 'v': 963, 'w': 2952, 'x': 176, 'y': 2584, 'z': 80}
 
-        self.assertEqual(homework.count_letters_dict(read_data), expected_result)
+        self.assertEqual(homework.char_frequency_dict_from_alphabet(read_data), expected_result)
+
+
+class TestCharFrequencyDictOnlyPresentAlphas(unittest.TestCase):
+    def test_char_frequency_dict_only_present_alphas_string(self):
+        test_text = "Ciao io sono Cristina"
+        expected_result = {'c': 2, 'i': 4, 'a': 2, 'o': 4, 's': 2, 'n': 2, 'r': 1, 't': 1}
+        self.assertEqual(homework.char_frequency_dict_only_present_alphas(test_text), expected_result)
+
+    def test_char_frequency_dict_only_present_alphast_file(self):
+        filename = "../alice_in_wonderland.txt"
+        # source http://www.gutenberg.org/files/11/11-0.txt
+
+        # open the file in read only mode
+        # source https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files
+        with open(filename) as f:
+            read_data = f.read()
+        f.closed
+
+        expected_result = {'a': 9804, 'b': 1746, 'c': 3003, 'd': 5469, 'e': 15396, 'f': 2383, 'g': 2944, 'h': 7890, 'i': 8634, 'j': 235, 'k': 1290, 'l': 5211, 'm': 2466, 'n': 8053, 'o': 9480, 'p': 1968, 'q': 220, 'r': 6612, 's': 7269, 't': 12204, 'u': 3979, 'v': 963, 'w': 2952, 'x': 176, 'y': 2584, 'z': 80}
+
+        self.assertEqual(homework.char_frequency_dict_only_present_alphas(read_data), expected_result)
 
 
 if __name__ == '__main__':

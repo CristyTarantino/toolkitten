@@ -7,25 +7,49 @@ Date - July 2018
 # https://docs.python.org/2/library/string.html
 import string
 
+
 # DAY 1
 # 1. Calculate a table for each letter in the alphabet from a-z,
 # and count how many times each letter appears in `alice_in_wonderland.txt`
 # (fancy word for counting stuff is "frequency distribution" - because you are counting the frequency of something)
 
 
-def count_letters_list(text):
+def char_frequency_list_from_alphabet(text):
     # generate a list of the alphabet in Python
     char_frequency_list = []
 
     for c in string.ascii_lowercase:
         char_frequency_list.append([c, 0])
 
+    # convert all to lowercase
     text = text.lower()
 
     # for each character in the text
     for char in char_frequency_list:
         # https://docs.python.org/2/library/string.html#string.count
         char[1] += text.count(char[0])
+
+    return char_frequency_list
+
+
+def char_frequency_list_only_present_alphas(text):
+    char_frequency_list = []
+
+    # convert all to lowercase
+    text = text.lower()
+
+    # for every char in text
+    for t in text:
+        # check if the current char is in the first index of each element in char_frequency_list
+        visited_chars_list = [c[0] for c in char_frequency_list]
+        # if is not in not been added yet and is a letter then add it to the frequency list
+        if t not in visited_chars_list and t.isalpha():
+            value = text.count(t)
+            char_frequency_list.append([t, value])
+        else:
+            continue
+
+    char_frequency_list = sorted(char_frequency_list)
 
     return char_frequency_list
 
@@ -50,7 +74,7 @@ for i in range(65, 65 + 2 * 29):
 
 def numbers_to_letters():
     for c in range(65, 65 + 2 * 29):
-        if 90 < c < 97:
+        if 90 < c < 97:     # or if chr(c).isalpha():
             continue
         print(chr(c))
 
@@ -101,12 +125,15 @@ def cypher_message():
 
 
 # 12. Redo the frequency distribution of alice_in_wonderland.txt and save your result in a dictionary.
-def count_letters_dict(text):
+
+# return a dictionary of the entire alphabet and the frequency of each letter
+def char_frequency_dict_from_alphabet(text):
     # generate a dict of the alphabet in Python
     # The fromkeys() method creates a new dictionary
     # from the given sequence of elements with a value provided by the user.
     char_frequency_dict = dict.fromkeys(string.ascii_lowercase, 0)
 
+    # convert all to lowercase
     text = text.lower()
 
     # for each character in the text
@@ -115,6 +142,23 @@ def count_letters_dict(text):
         if char in char_frequency_dict:
             # increment its value of 1
             char_frequency_dict[char] += 1
+
+    return char_frequency_dict
+
+
+# return a dictionary of the letter present in the @param text and its frequency
+def char_frequency_dict_only_present_alphas(text):
+    char_frequency_dict = {}
+
+    # convert all to lowercase
+    text = text.lower()
+
+    for char in text:
+        if char not in char_frequency_dict.keys() and char.isalpha():
+            value = text.count(char)
+            char_frequency_dict[char] = value
+        else:
+            continue
 
     return char_frequency_dict
 
