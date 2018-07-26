@@ -66,3 +66,7 @@ typings/
 # IDE
 .idea
 venv
+
+# nltk
+nltk_data
+.ipynb_checkpoints
