@@ -75,7 +75,7 @@ def char_frequency_list_only_present_alphas(text):
 # for i in range(65,65+2*26):
 #     print(i, " stands for ", chr(i))
 
-print("\nExercise Fix the loop for correct char range")
+print("\nExercise Fix the loop for correct char range\n")
 
 for i in range(65, 65 + 2 * 29):
     if 90 < i < 97:
@@ -208,6 +208,20 @@ def generate_random_board(n):
 # 11. Modify "a" for another name in my_dict.
 # Hint: you will have to create a new key-value pair, copy in the value, and then delete the old one.
 
+print("\nExercise Modify key name in my_dict\n")
+
+my_dict = {
+    "a": 35000,
+    "b": 8000,
+    "z": 450
+}
+
+my_dict["new_key"] = my_dict["a"]
+
+del(my_dict["a"])
+
+print(my_dict)
+
 
 # 12. Redo the frequency distribution of alice_in_wonderland.txt and save your result in a dictionary.
 
@@ -266,30 +280,30 @@ who_am_i = {
     "marital_status": "married"
 }
 
-print(who_am_i)
+print("\n", who_am_i)
 
 # loop
 for k, v in who_am_i.items():
     print(k, ":", v)
 
-print(who_am_i.keys())
-print(who_am_i.values())
-print(len(who_am_i))
+print("\n", who_am_i.keys())
+print("\n", who_am_i.values())
+print("\n", len(who_am_i), "\n")
 
 for i, k in enumerate(who_am_i):
     print(i, k)
 
 del(who_am_i["skin_type"])
 
-print(sorted(who_am_i))
+print("\n", sorted(who_am_i))
 
 who_am_i["skin_type"] = "ghost"
 
-print(who_am_i)
+print("\n", who_am_i)
 
 who_am_i["skin_type"] = "pail white"
 
-print(who_am_i)
+print("\n", who_am_i)
 
 
 # 14. Mapping with cities and states/regions in your country or some other country.
@@ -302,6 +316,8 @@ print(who_am_i)
 
 # 17. Write a test to check the outcome of the alice_in_wonderfland task:
 # one test for list of lists, and one test for dictionary output.
+
+# Please have a look at all the tests in the file soc_wk2_cert_cristina_tarantino.test.py
 
 
 # 18. Review the chat reply of today's beautiful class
@@ -327,3 +343,12 @@ print(who_am_i)
 
 # 23. Search online for "object-oriented programming" and try to overflow your brain with what you read.
 # Don't worry if it makes absolutely no sense to you. Half of that stuff makes no sense to me too.
+
+# install pip, NLTK, Anaconda and Jupyter Notebook
+
+# DONE although it's hard to demonstrate I have done it
+
+# from http://www.nltk.org/book/ch01.html _☼
+# Compare the lexical diversity scores for humor and romance fiction in 1.1. Which genre is more lexically diverse?
+
+# http://jfine-python-classes.readthedocs.io/en/latest/subclass-int.html
