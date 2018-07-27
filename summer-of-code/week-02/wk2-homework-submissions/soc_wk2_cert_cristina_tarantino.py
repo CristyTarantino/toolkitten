@@ -5,8 +5,22 @@ Date - July 2018
 """
 
 # https://docs.python.org/2/library/string.html
-import string
+from string import ascii_lowercase, ascii_uppercase
+import operator
+import random
 
+
+def get_input_number(msg):
+    # try to convert the input in an integer
+    try:
+        user_number = int(input(msg))
+    # if it is not possible acknowledge the user and continue to prompt him to insert a number
+    except ValueError:
+        print("\nThat wasn't a valid number!")
+        return get_input_number(msg)
+    # else execute the input manipulation and break the infinite loop
+    else:
+        return user_number
 
 # DAY 1
 # 1. Calculate a table for each letter in the alphabet from a-z,
@@ -18,7 +32,7 @@ def char_frequency_list_from_alphabet(text):
     # generate a list of the alphabet in Python
     char_frequency_list = []
 
-    for c in string.ascii_lowercase:
+    for c in ascii_lowercase:
         char_frequency_list.append([c, 0])
 
     # convert all to lowercase
@@ -93,10 +107,42 @@ def cypher_message():
     return char_list
 
 
-# 4. Write a function that does a ceaser cypher (Google), ask the user a number, and shift their message by that number.
+# 5. Write a function that does a ceaser cypher (Google), ask the user a number, and shift their message by that number.
+
+def ceaser_cypher(function_verb, operation):
+    TOTAL_ALPHABET_NUM = len(ascii_lowercase)
+    LOWER_ALPHABET_LOW_OFFSET = ord(ascii_lowercase[0])
+    LOWER_ALPHABET_UPP_OFFSET = ord(ascii_uppercase[0])
+
+    shifting_num = get_input_number("\nPlease type a number that will be used for the shifting strategy: ")
+    message = input("\nPlease type a message to be %s: " % function_verb)
+    encrypted_message = ""
+
+    for c in message:
+        if c.isalpha():
+            if c.islower():
+                offset = LOWER_ALPHABET_LOW_OFFSET
+            else:
+                offset = LOWER_ALPHABET_UPP_OFFSET
+
+            letter_to_number = ord(c) - offset
+            encrypted_c = operation(letter_to_number, shifting_num) % TOTAL_ALPHABET_NUM
+            encrypted_message += chr(encrypted_c + offset)
+        else:
+            encrypted_message += c
+
+    return encrypted_message
 
 
-# 5. Write a function that prints out all elements of the below board,
+def encryption_ceaser_cypher():
+    return ceaser_cypher("encrypted", operator.add)
+
+
+def decryption_ceaser_cypher():
+    return ceaser_cypher("decrypted", operator.sub)
+
+
+# 6. Write a function that prints out all elements of the below board,
 # starting from the first element of the first line, till the end. Each line should be read from beginning to end.
 
 M = "land"
@@ -128,7 +174,11 @@ def print_board(board):
 #             print(board[item][row])
 
 
-# 6. Now write a function that prints out all elements in reverse.
+# 7. Now write a function that prints out all elements in reverse.
+def print_reversed_board(board):
+    for row in reversed(board):
+        for item in reversed(row):
+            print(item)
 
 
 # 7. There is one small bug in the continent counter above.
@@ -136,6 +186,13 @@ def print_board(board):
 
 
 # 8. Write a function that generates an n x n sized board with either land or water chosen randomly.
+def generate_random_board(n):
+    L = "land"
+    W = "water"
+
+    world = [[random.choice([L, W]) for column in range(n)] for row in range(n)]
+
+    return world
 
 
 # 9. Run your continent counter for a 20 x 20 board. How long does it take to run?
@@ -159,7 +216,7 @@ def char_frequency_dict_from_alphabet(text):
     # generate a dict of the alphabet in Python
     # The fromkeys() method creates a new dictionary
     # from the given sequence of elements with a value provided by the user.
-    char_frequency_dict = dict.fromkeys(string.ascii_lowercase, 0)
+    char_frequency_dict = dict.fromkeys(ascii_lowercase, 0)
 
     # convert all to lowercase
     text = text.lower()

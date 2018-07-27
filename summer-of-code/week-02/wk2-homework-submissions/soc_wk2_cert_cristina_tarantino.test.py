@@ -3,15 +3,9 @@
 
 # Python unittest reference https://docs.python.org/3/library/unittest.html
 
-# import io
-# import unittest
-# import unittest.mock
-# mock = unittest.mock.MagicMock()
-# from unittest.mock import patch
-
+from io import StringIO
 import unittest
 from unittest import mock
-from io import StringIO
 
 import soc_wk2_cert_cristina_tarantino as homework
 
@@ -45,30 +39,29 @@ class TestCharFrequencyListOnlyPresentAlphas(unittest.TestCase):
 
         self.assertEqual(homework.char_frequency_list_only_present_alphas(test_text), expected_result)
 
-    # def test_char_frequency_dict_only_present_alphas_file(self):
-    #     filename = "../alice_in_wonderland.txt"
-    #     # source http://www.gutenberg.org/files/11/11-0.txt
-    #
-    #     # open the file in read only mode
-    #     # source https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files
-    #     with open(filename) as f:
-    #         read_data = f.read()
-    #     f.closed
-    #
-    #     expected_result = [['a', 9804], ['b', 1746], ['c', 3003], ['d', 5469], ['e', 15396], ['f', 2383], ['g', 2944], ['h', 7890], ['i', 8634], ['j', 235], ['k', 1290], ['l', 5211], ['m', 2466], ['n', 8053], ['o', 9480], ['p', 1968], ['q', 220], ['r', 6612], ['s', 7269], ['t', 12204], ['u', 3979], ['v', 963], ['w', 2952], ['x', 176], ['y', 2584], ['z', 80]]
-    #
-    #     self.assertEqual(homework.char_frequency_list_only_present_alphas(read_data), expected_result)
+    def test_char_frequency_dict_only_present_alphas_file(self):
+        filename = "../alice_in_wonderland.txt"
+        # source http://www.gutenberg.org/files/11/11-0.txt
+
+        # open the file in read only mode
+        # source https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files
+        with open(filename) as f:
+            read_data = f.read()
+        f.closed
+
+        expected_result = [['a', 9804], ['b', 1746], ['c', 3003], ['d', 5469], ['e', 15396], ['f', 2383], ['g', 2944], ['h', 7890], ['i', 8634], ['j', 235], ['k', 1290], ['l', 5211], ['m', 2466], ['n', 8053], ['o', 9480], ['p', 1968], ['q', 220], ['r', 6612], ['s', 7269], ['t', 12204], ['u', 3979], ['v', 963], ['w', 2952], ['x', 176], ['y', 2584], ['z', 80]]
+
+        self.assertEqual(homework.char_frequency_list_only_present_alphas(read_data), expected_result)
 
 
 # https://learnbyexample.gitbooks.io/python-basics/content/Testing.html#using-unittest.mock-to-test-user-input-and-program-output
 # TODO research decorator and sys.stdout
 class TestNumbersToLetters(unittest.TestCase):
-        expected_result = 'A\nB\nC\nD\nE\nF\nG\nH\nI\nJ\nK\nL\nM\nN\nO\nP\nQ\nR\nS\nT\nU\nV\nW\nX\nY\nZ\na\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk\nl\nm\nn\no\np\nq\nr\ns\nt\nu\nv\nw\nx\ny\nz\n'
-
         @mock.patch('sys.stdout', new_callable=StringIO)
         def test_numbers_to_letters(self, mock_stdout):
+            expected_result = 'A\nB\nC\nD\nE\nF\nG\nH\nI\nJ\nK\nL\nM\nN\nO\nP\nQ\nR\nS\nT\nU\nV\nW\nX\nY\nZ\na\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk\nl\nm\nn\no\np\nq\nr\ns\nt\nu\nv\nw\nx\ny\nz\n'
             homework.numbers_to_letters()
-            self.assertEqual(mock_stdout.getvalue(), self.expected_result)
+            self.assertEqual(mock_stdout.getvalue(), expected_result)
 
 
 class TestCypherMessage(unittest.TestCase):
@@ -79,6 +72,58 @@ class TestCypherMessage(unittest.TestCase):
 
         with mock.patch('builtins.input', return_value=test_text):
             self.assertEqual(homework.cypher_message(), expected_result)
+
+
+class TestEncryptionCeaserCypher(unittest.TestCase):
+    def test_encryption_ceaser_cypher_string(self):
+        num = 3
+        test_text = "Ciao io sono Cristina"
+        expected_result = "Fldr lr vrqr Fulvwlqd"
+
+        with mock.patch('builtins.input', side_effect=[num, test_text]):
+            self.assertEqual(homework.encryption_ceaser_cypher(), expected_result)
+
+    def test_encryption_ceaser_cypher_number(self):
+        num = 3
+        test_text = "Ciao io sono Cristina and I love the number 29"
+        expected_result = "Fldr lr vrqr Fulvwlqd dqg L oryh wkh qxpehu 29"
+
+        with mock.patch('builtins.input', side_effect=[num, test_text]):
+            self.assertEqual(homework.encryption_ceaser_cypher(), expected_result)
+
+    def test_encryption_ceaser_cypher_roman_number(self):
+        num = 3
+        test_text = "Ciao io sono Cristina and I love the number IXXX"
+        expected_result = "Fldr lr vrqr Fulvwlqd dqg L oryh wkh qxpehu LAAA"
+
+        with mock.patch('builtins.input', side_effect=[num, test_text]):
+            self.assertEqual(homework.encryption_ceaser_cypher(), expected_result)
+
+
+class TestDecryptionCeaserCypher(unittest.TestCase):
+    def test_encryption_ceaser_cypher_string(self):
+        num = 3
+        test_text = "Fldr lr vrqr Fulvwlqd"
+        expected_result = "Ciao io sono Cristina"
+
+        with mock.patch('builtins.input', side_effect=[num, test_text]):
+            self.assertEqual(homework.decryption_ceaser_cypher(), expected_result)
+
+    def test_encryption_ceaser_cypher_number(self):
+        num = 3
+        test_text = "Fldr lr vrqr Fulvwlqd dqg L oryh wkh qxpehu 29"
+        expected_result = "Ciao io sono Cristina and I love the number 29"
+
+        with mock.patch('builtins.input', side_effect=[num, test_text]):
+            self.assertEqual(homework.decryption_ceaser_cypher(), expected_result)
+
+    def test_encryption_ceaser_cypher_roman_number(self):
+        num = 3
+        test_text = "Fldr lr vrqr Fulvwlqd dqg L oryh wkh qxpehu LAAA"
+        expected_result = "Ciao io sono Cristina and I love the number IXXX"
+
+        with mock.patch('builtins.input', side_effect=[num, test_text]):
+            self.assertEqual(homework.decryption_ceaser_cypher(), expected_result)
 
 
 class TestCharFrequencyDictFromAlphabet(unittest.TestCase):
@@ -108,7 +153,7 @@ class TestCharFrequencyDictOnlyPresentAlphas(unittest.TestCase):
         expected_result = {'c': 2, 'i': 4, 'a': 2, 'o': 4, 's': 2, 'n': 2, 'r': 1, 't': 1}
         self.assertEqual(homework.char_frequency_dict_only_present_alphas(test_text), expected_result)
 
-    def test_char_frequency_dict_only_present_alphast_file(self):
+    def test_char_frequency_dict_only_present_alphas_file(self):
         filename = "../alice_in_wonderland.txt"
         # source http://www.gutenberg.org/files/11/11-0.txt
 
