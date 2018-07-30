@@ -1,0 +1,15 @@
+# file.txt
+
+loving
+eclipsing I don't have the file.
+contemplating coding coding typing LOL creating
+reticulating splines
+
+# test the split() method
+# testing non-alphabetical characters
+
+filing.file
+commaing,comma
+
+innovating-waterskiing!smiling.panicking marvellous
+pythoning
