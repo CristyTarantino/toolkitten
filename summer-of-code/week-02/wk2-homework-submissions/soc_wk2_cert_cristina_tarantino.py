@@ -9,7 +9,7 @@ from string import ascii_lowercase, ascii_uppercase
 import operator
 import random
 
-
+# TODO test this
 def get_input_number(msg):
     # try to convert the input in an integer
     try:
@@ -145,24 +145,6 @@ def decryption_ceaser_cypher():
 # 6. Write a function that prints out all elements of the below board,
 # starting from the first element of the first line, till the end. Each line should be read from beginning to end.
 
-M = "land"
-o = "water"
-
-world = [
-            [o,o,o,o,o,o,o,o,o,o,o],
-            [o,o,o,o,M,M,o,o,o,o,o],
-            [o,o,o,o,o,o,o,o,M,M,o],
-            [o,o,o,M,o,o,o,o,o,M,o],
-            [o,o,o,M,o,M,M,o,o,o,o],
-            [o,o,o,o,M,M,M,M,o,o,o],
-            [o,o,o,M,M,M,M,M,M,M,o],
-            [o,o,o,M,M,o,M,M,M,o,o],
-            [o,o,o,o,o,o,M,M,o,o,o],
-            [o,M,o,o,o,M,o,o,o,o,o],
-            [o,o,o,o,o,o,o,o,o,o,o]
-        ]
-
-
 def print_board(board):
     for row in board:
         for item in row:
@@ -200,6 +182,9 @@ def generate_random_board(n):
 # make sure you know how to break a running program as
 # it may take a long time to complete and you might not have time to wait for it ;)
 
+# generate_random_board(20)
+
+# generate_random_board(30)
 
 # 10. Write test coverage in unittest and/or trace for Continent Counter.
 
