@@ -165,6 +165,41 @@ def print_reversed_board(board):
 
 # 7. There is one small bug in the continent counter above.
 # Can you find it and fix it? (Hint: change the world so that the continent borders the edge)
+def continent_counter(world, column, row):
+    if 0 < row < len(world) and 0 < column < len(world[0]):
+        if world[row][column] != 'land':
+            return 0
+
+        size = 1
+
+        # if  world[row][column] == 'land' => flag that land as counted
+        world[row][column] = 'counted land'
+
+        # ...then we count all of the neighboring tiles
+        # (and, of course, their neighbors by way of the recursion).​
+
+        # row above left column
+        size = size + continent_counter(world, column - 1, row - 1)
+        # row above above column
+        size = size + continent_counter(world, column,     row - 1)
+        # row above right column
+        size = size + continent_counter(world, column + 1, row - 1)
+
+        # same row left column
+        size = size + continent_counter(world, column - 1, row)
+        # same row right column
+        size = size + continent_counter(world, column + 1, row)
+
+        # row below left column
+        size = size + continent_counter(world, column - 1, row + 1)
+        # row below below column
+        size = size + continent_counter(world, column,     row + 1)
+        # row below right column
+        size = size + continent_counter(world, column + 1, row + 1)
+
+        return size
+    else:
+        return 0
 
 
 # 8. Write a function that generates an n x n sized board with either land or water chosen randomly.
@@ -175,6 +210,44 @@ def generate_random_board(n):
     world = [[random.choice([L, W]) for column in range(n)] for row in range(n)]
 
     return world
+
+# 9. Personal exercise for practice.
+# Find the largest two, and see whether they look like fun to play on.
+
+
+def find_continets(world):
+    continents = {}
+
+    for row in range(len(world)):
+        for column in range(len(world[0])):
+            curr_cont_size = continent_counter(world, row, column)
+            if curr_cont_size:
+                continents["continent-row-" + str(row) + "-column-" + str(column)] = curr_cont_size
+
+    return continents
+
+
+def sort_n_continets(continents, n):
+    largest_n_continents = {}
+
+    if len(continents) < n:
+        n = len(continents)
+
+    if len(continents) >= n:
+        for item in range(n):
+            # https://docs.python.org/3.7/library/functions.html#max
+            # https://docs.python.org/3.7/library/stdtypes.html#dict.get
+            # max return the largest item in an iterable
+            # dict.get return the value for key if key is in the dictionary, else default.
+            largest_continent = max(continents, key=continents.get)
+            largest_n_continents[largest_continent] = continents[largest_continent]
+            del (continents[largest_continent])
+
+    return largest_n_continents
+
+
+def find_largest_n_continents(world, n):
+    return sort_n_continets(find_continets(world), n)
 
 
 # 9. Run your continent counter for a 20 x 20 board. How long does it take to run?
