@@ -226,6 +226,16 @@ class TestGenerateRandomBoard(unittest.TestCase):
         # and the number of columns is N
         self.assertEqual(len(homework.generate_random_board(N)[0]), N)
 
+    def test_print_board_n_time_m(self):
+        N = 5
+        M = 4
+
+        # test that the number of rows is N
+        self.assertEqual(len(homework.generate_random_board(N, M)), N)
+
+        # and the number of columns is N
+        self.assertEqual(len(homework.generate_random_board(N, M)[0]), M)
+
     def test_print_board_randomness(self):
         N = 5
 
@@ -247,6 +257,216 @@ class TestGenerateRandomBoard(unittest.TestCase):
         random_world = homework.generate_random_board(N)
 
         self.assertEqual(random_world, expected_result)
+
+
+class TestContinentCounter(unittest.TestCase):
+    def test_continent_counter_from_zero(self):
+        M = 'land'
+        o = 'water'
+        world = [
+            [o, o, o, o, o, o, o, o, o, o, o],
+            [o, o, o, o, M, M, o, o, o, o, o],
+            [o, o, o, o, o, o, o, o, M, M, o],
+            [o, o, o, M, o, o, o, o, o, M, o],
+            [o, o, o, M, o, M, M, o, o, o, o],
+            [o, o, o, o, M, M, M, M, o, o, o],
+            [o, o, o, M, M, M, M, M, M, M, o],
+            [o, o, o, M, M, o, M, M, M, o, o],
+            [o, o, o, o, o, o, M, M, o, o, o],
+            [o, M, o, o, o, M, o, o, o, o, o],
+            [o, o, o, o, o, o, o, o, o, o, o]
+        ]
+
+        self.assertEqual(homework.continent_counter(world, 0, 0), 0)
+
+    def test_continent_counter_from_number(self):
+        M = 'land'
+        o = 'water'
+        world = [
+            [o, o, o, o, o, o, o, o, o, o, o],
+            [o, o, o, o, M, M, o, o, o, o, o],
+            [o, o, o, o, o, o, o, o, M, M, o],
+            [o, o, o, M, o, o, o, o, o, M, o],
+            [o, o, o, M, o, M, M, o, o, o, o],
+            [o, o, o, o, M, M, M, M, o, o, o],
+            [o, o, o, M, M, M, M, M, M, M, o],
+            [o, o, o, M, M, o, M, M, M, o, o],
+            [o, o, o, o, o, o, M, M, o, o, o],
+            [o, M, o, o, o, M, o, o, o, o, o],
+            [o, o, o, o, o, o, o, o, o, o, o]
+        ]
+
+        self.assertEqual(homework.continent_counter(world, 5, 5), 23)
+
+    def test_continent_counter_border_edge(self):
+        M = 'land'
+        o = 'water'
+        world = [
+            [o, o, o, o, o, o, o, o, o, o, o],
+            [o, o, o, o, M, M, o, o, o, o, o],
+            [o, o, o, o, o, o, o, o, M, M, o],
+            [o, o, o, M, o, o, o, o, o, M, o],
+            [o, o, o, M, o, M, M, o, o, o, o],
+            [o, o, o, o, M, M, M, M, o, o, o],
+            [o, o, o, M, M, M, M, M, M, M, M],
+            [o, o, o, M, M, o, M, M, M, o, o],
+            [o, o, o, o, o, o, M, M, o, o, o],
+            [o, M, o, o, o, M, o, o, o, o, o],
+            [o, o, o, o, o, o, o, o, o, o, o]
+        ]
+
+        self.assertEqual(homework.continent_counter(world, 5, 5), 24)
+
+    def test_continent_counter_n_times_m(self):
+        M = 'land'
+        o = 'water'
+        world = [
+            [o, o, o, o, o, o, o, o, o, o],
+            [o, o, o, o, M, M, o, o, o, o],
+            [o, o, o, o, o, o, o, o, M, M],
+            [o, o, o, M, o, o, o, o, o, M],
+            [o, o, o, M, o, M, M, o, o, o],
+            [o, o, o, o, M, M, M, M, o, o],
+            [o, o, o, M, M, M, M, M, M, M],
+            [o, o, o, M, M, o, M, M, M, o],
+            [o, o, o, o, o, o, M, M, o, o],
+            [o, M, o, o, o, M, o, o, o, o],
+            [o, o, o, o, o, o, o, o, o, o]
+        ]
+
+        self.assertEqual(homework.continent_counter(world, 5, 5), 23)
+
+
+class TestFindContinents(unittest.TestCase):
+    def test_find_continets_no_border_edge(self):
+        M = 'land'
+        o = 'water'
+        world = [
+            [o, o, o, o, o, o, o, o, o, o, o],
+            [o, o, o, o, M, M, o, o, o, o, o],
+            [o, o, o, o, o, o, o, o, M, M, o],
+            [o, o, o, M, o, o, o, o, o, M, o],
+            [o, o, o, M, o, M, M, o, o, o, o],
+            [o, o, o, o, M, M, M, M, o, o, o],
+            [o, o, o, M, M, M, M, M, M, M, o],
+            [o, o, o, M, M, o, M, M, M, o, o],
+            [o, o, o, o, o, o, M, M, o, o, o],
+            [o, M, o, o, o, M, o, o, o, o, o],
+            [o, o, o, o, o, o, o, o, o, o, o]
+        ]
+
+        expected_result = {'continent-row-1-column-9': 1, 'continent-row-3-column-3': 23, 'continent-row-4-column-1': 2,
+                           'continent-row-8-column-2': 3}
+
+        self.assertEqual(homework.find_continets(world), expected_result)
+
+    def test_find_continets_border_edge(self):
+        M = 'land'
+        o = 'water'
+        world = [
+            [o, o, o, o, o, o, o, o, o, o, o],
+            [o, o, o, o, M, M, o, o, o, o, o],
+            [o, o, o, o, o, o, o, o, M, M, o],
+            [o, o, o, M, o, o, o, o, o, M, o],
+            [o, o, o, M, o, M, M, o, o, o, o],
+            [o, o, o, o, M, M, M, M, o, o, o],
+            [o, o, o, M, M, M, M, M, M, M, M],
+            [o, o, o, M, M, o, M, M, M, o, o],
+            [o, o, o, o, o, o, M, M, o, o, o],
+            [o, M, o, o, o, M, o, o, o, o, o],
+            [o, o, o, o, o, o, o, o, o, o, o]
+        ]
+
+        expected_result = {'continent-row-1-column-9': 1, 'continent-row-3-column-3': 24, 'continent-row-4-column-1': 2,
+                           'continent-row-8-column-2': 3}
+
+        self.assertEqual(homework.find_continets(world), expected_result)
+
+    def test_find_continets_n_times_m(self):
+        M = 'land'
+        o = 'water'
+        world = [
+            [o, o, o, o, o, o, o, o, o, o],
+            [o, o, o, o, M, M, o, o, o, o],
+            [o, o, o, o, o, o, o, o, M, M],
+            [o, o, o, M, o, o, o, o, o, M],
+            [o, o, o, M, o, M, M, o, o, o],
+            [o, o, o, o, M, M, M, M, o, o],
+            [o, o, o, M, M, M, M, M, M, M],
+            [o, o, o, M, M, o, M, M, M, o],
+            [o, o, o, o, o, o, M, M, o, o],
+            [o, M, o, o, o, M, o, o, o, o],
+            [o, o, o, o, o, o, o, o, o, o]
+        ]
+
+        expected_result = {'continent-row-1-column-9': 1, 'continent-row-3-column-3': 23, 'continent-row-4-column-1': 2,
+                           'continent-row-8-column-2': 3}
+
+        self.assertEqual(homework.find_continets(world), expected_result)
+
+
+class TestFindLargestNContinents(unittest.TestCase):
+    def setUp(self):
+        M = 'land'
+        o = 'water'
+        self.world = [
+            [o, o, o, o, o, o, o, o, o, o, o],
+            [o, o, o, o, M, M, o, o, o, o, o],
+            [o, o, o, o, o, o, o, o, M, M, o],
+            [o, o, o, M, o, o, o, o, o, M, o],
+            [o, o, o, M, o, M, M, o, o, o, o],
+            [o, o, o, o, M, M, M, M, o, o, o],
+            [o, o, o, M, M, M, M, M, M, M, M],
+            [o, o, o, M, M, o, M, M, M, o, o],
+            [o, o, o, o, o, o, M, M, o, o, o],
+            [o, M, o, o, o, M, o, o, o, o, o],
+            [o, o, o, o, o, o, o, o, o, o, o]
+        ]
+
+    def tearDown(self):
+        M = 'land'
+        o = 'water'
+        self.world = [
+            [o, o, o, o, o, o, o, o, o, o, o],
+            [o, o, o, o, M, M, o, o, o, o, o],
+            [o, o, o, o, o, o, o, o, M, M, o],
+            [o, o, o, M, o, o, o, o, o, M, o],
+            [o, o, o, M, o, M, M, o, o, o, o],
+            [o, o, o, o, M, M, M, M, o, o, o],
+            [o, o, o, M, M, M, M, M, M, M, M],
+            [o, o, o, M, M, o, M, M, M, o, o],
+            [o, o, o, o, o, o, M, M, o, o, o],
+            [o, M, o, o, o, M, o, o, o, o, o],
+            [o, o, o, o, o, o, o, o, o, o, o]
+        ]
+
+    def test_find_largest_n_continents_zero(self):
+        expected_result = {}
+
+        self.assertEqual(homework.find_largest_n_continents(self.world, 0), expected_result)
+
+    def test_find_largest_n_continents_one(self):
+        expected_result = {'continent-row-3-column-3': 24}
+
+        self.assertEqual(homework.find_largest_n_continents(self.world, 1), expected_result)
+
+    def test_find_largest_n_continents_two(self):
+        expected_result = {'continent-row-3-column-3': 24, 'continent-row-8-column-2': 3}
+
+        self.assertEqual(homework.find_largest_n_continents(self.world, 2), expected_result)
+
+    def test_find_largest_n_continents_tot_length(self):
+        expected_result = {'continent-row-3-column-3': 24, 'continent-row-8-column-2': 3, 'continent-row-4-column-1': 2,
+                           'continent-row-1-column-9': 1}
+
+        self.assertEqual(homework.find_largest_n_continents(self.world, len(self.world)), expected_result)
+
+    def test_find_largest_n_continents_greater_tot_length(self):
+        expected_result = {'continent-row-3-column-3': 24, 'continent-row-8-column-2': 3,
+                           'continent-row-4-column-1': 2,
+                           'continent-row-1-column-9': 1}
+
+        self.assertEqual(homework.find_largest_n_continents(self.world, len(self.world)+1), expected_result)
 
 
 class TestCharFrequencyDictFromAlphabet(unittest.TestCase):

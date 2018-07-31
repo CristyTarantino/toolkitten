@@ -163,7 +163,7 @@ def print_reversed_board(board):
             print(item)
 
 
-# 7. There is one small bug in the continent counter above.
+# 8. There is one small bug in the continent counter above.
 # Can you find it and fix it? (Hint: change the world so that the continent borders the edge)
 def continent_counter(world, column, row):
     if 0 < row < len(world) and 0 < column < len(world[0]):
@@ -173,7 +173,7 @@ def continent_counter(world, column, row):
         size = 1
 
         # if  world[row][column] == 'land' => flag that land as counted
-        world[row][column] = 'counted land'
+        world[row][column] += 'counted'
 
         # ...then we count all of the neighboring tiles
         # (and, of course, their neighbors by way of the recursion).​
@@ -202,19 +202,33 @@ def continent_counter(world, column, row):
         return 0
 
 
-# 8. Write a function that generates an n x n sized board with either land or water chosen randomly.
-def generate_random_board(n):
+# 9. Write a function that generates an n x n sized board with either land or water chosen randomly.
+
+
+def generate_random_board(n, m=None):
     L = "land"
     W = "water"
 
-    world = [[random.choice([L, W]) for column in range(n)] for row in range(n)]
+    if not m:
+        m = n
+
+    world = [[random.choice([L, W]) for column in range(m)] for row in range(n)]
 
     return world
 
-# 9. Personal exercise for practice.
+
+# Personal exercise for practice.
 # Find the largest two, and see whether they look like fun to play on.
 
-
+# example output would be:
+# {
+#   'continent-row-3-column-3': 24,
+#   'continent-row-8-column-2': 3,
+#   'continent-row-4-column-1': 2,
+#   'continent-row-1-column-9': 1
+# }
+# where key gives the coordinates of the beginning of the continent
+# and value is the area that continent expands through
 def find_continets(world):
     continents = {}
 
@@ -227,7 +241,9 @@ def find_continets(world):
     return continents
 
 
-def sort_n_continets(continents, n):
+def find_largest_n_continents(world, n):
+    continents = find_continets(world)
+
     largest_n_continents = {}
 
     if len(continents) < n:
@@ -246,24 +262,27 @@ def sort_n_continets(continents, n):
     return largest_n_continents
 
 
-def find_largest_n_continents(world, n):
-    return sort_n_continets(find_continets(world), n)
-
-
-# 9. Run your continent counter for a 20 x 20 board. How long does it take to run?
+# 10. Run your continent counter for a 20 x 20 board. How long does it take to run?
 # (If it runs quickly, try 30 x 30 ... 100 x 100 just be aware you might end up in a VERY LOOOONG WAIT)
 # make sure you know how to break a running program as
 # it may take a long time to complete and you might not have time to wait for it ;)
 
-# generate_random_board(20)
+# I have uncommented the lines below to avoid program crashing
+# recursions are good looking but have a great time and space complexity
+# and they can cause stack overflows which then causes the applications to crash
+# recursion are implemented using memory stack. A stack has a size,
+# once the recursion uses more space than the stack has available we incur in stack overflow
 
+# generate_random_board(20)
 # generate_random_board(30)
 
-# 10. Write test coverage in unittest and/or trace for Continent Counter.
+# 11. Write test coverage in unittest and/or trace for Continent Counter.
+
+# please look at soc_wk2_cert_cristina_tarantino.test.py
 
 # DAY 3
 
-# 11. Modify "a" for another name in my_dict.
+# 12. Modify "a" for another name in my_dict.
 # Hint: you will have to create a new key-value pair, copy in the value, and then delete the old one.
 
 print("\nExercise Modify key name in my_dict\n")
@@ -281,7 +300,7 @@ del(my_dict["a"])
 print(my_dict)
 
 
-# 12. Redo the frequency distribution of alice_in_wonderland.txt and save your result in a dictionary.
+# 13. Redo the frequency distribution of alice_in_wonderland.txt and save your result in a dictionary.
 
 # return a dictionary of the entire alphabet and the frequency of each letter
 def char_frequency_dict_from_alphabet(text):
@@ -320,7 +339,7 @@ def char_frequency_dict_only_present_alphas(text):
     return char_frequency_dict
 
 
-# 13. Create a dictionary with your own personal details, feel free to be creative and funny so for example,
+# 14. Create a dictionary with your own personal details, feel free to be creative and funny so for example,
 # you could include key-value pairs with `quirky fact`, `fav quote`, `pet`. Practice adding, modifying, accessing.
 
 print("\nExercise personal details dictionary")
@@ -364,49 +383,50 @@ who_am_i["skin_type"] = "pail white"
 print("\n", who_am_i)
 
 
-# 14. Mapping with cities and states/regions in your country or some other country.
+# 15. Mapping with cities and states/regions in your country or some other country.
 
 
-# 15. Find the Python documentation for dictionaries and try to do even more things to them.
+# 16. Find the Python documentation for dictionaries and try to do even more things to them.
 
 
-# 16. Find out what you can't do with dictionaries. A big one is that they do not have order, so try playing with that.
+# 17. Find out what you can't do with dictionaries. A big one is that they do not have order, so try playing with that.
 
-# 17. Write a test to check the outcome of the alice_in_wonderfland task:
+# 18. Write a test to check the outcome of the alice_in_wonderfland task:
 # one test for list of lists, and one test for dictionary output.
 
 # Please have a look at all the tests in the file soc_wk2_cert_cristina_tarantino.test.py
 
 
-# 18. Review the chat reply of today's beautiful class
+# 19. Review the chat reply of today's beautiful class
 # interaction and instantiate a student variable for everyone who shared their dream.
 
 
-# 19. Translate the real world 1MWTT student into a Student class,
+# 20. Translate the real world 1MWTT student into a Student class,
 # decide on all the attributes that would be meaningful.
 # Hint: You can start with the DIY signup form https://memberportal.1millionwomentotech.com/diy
 # but feel free to be creative and add/modify as you see it best! This is the REAL work of a creator
 # to find the meaningful description of reality and translate it for computers.
 
 
-# 20. Write some more songs using this and make sure you understand that you're passing a list of strings as the lyrics.
+# 21. Write some more songs using this and make sure you understand that you're passing a list of strings as the lyrics.
 
 
-# 21. Put the lyrics in a separate variable, then pass that variable to the class to use instead.
+# 22. Put the lyrics in a separate variable, then pass that variable to the class to use instead.
 
 
-# 22. See if you can hack on this and make it do more things.
+# 23. See if you can hack on this and make it do more things.
 # Don't worry if you have no idea how,
 # just give it a try, see what happens. Break it, trash it, thrash it, you can't hurt it.
 
-# 23. Search online for "object-oriented programming" and try to overflow your brain with what you read.
+# 24. Search online for "object-oriented programming" and try to overflow your brain with what you read.
 # Don't worry if it makes absolutely no sense to you. Half of that stuff makes no sense to me too.
+
 
 # install pip, NLTK, Anaconda and Jupyter Notebook
 
 # DONE although it's hard to demonstrate I have done it
 
+
 # from http://www.nltk.org/book/ch01.html _☼
 # Compare the lexical diversity scores for humor and romance fiction in 1.1. Which genre is more lexically diverse?
-
 # http://jfine-python-classes.readthedocs.io/en/latest/subclass-int.html
