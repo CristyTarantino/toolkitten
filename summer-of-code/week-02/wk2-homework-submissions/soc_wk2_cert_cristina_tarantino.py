@@ -9,6 +9,7 @@ from string import ascii_lowercase, ascii_uppercase
 import operator
 import random
 
+
 # TODO test this
 def get_input_number(msg):
     # try to convert the input in an integer
@@ -21,6 +22,7 @@ def get_input_number(msg):
     # else execute the input manipulation and break the infinite loop
     else:
         return user_number
+
 
 # DAY 1
 # 1. Calculate a table for each letter in the alphabet from a-z,
@@ -88,7 +90,7 @@ for i in range(65, 65 + 2 * 29):
 
 def numbers_to_letters():
     for c in range(65, 65 + 2 * 29):
-        if 90 < c < 97:     # or if chr(c).isalpha():
+        if 90 < c < 97:  # or if chr(c).isalpha():
             continue
         print(chr(c))
 
@@ -150,6 +152,7 @@ def print_board(board):
         for item in row:
             print(item)
 
+
 # def print_board(board):
 #     for row in range(len(board)):
 #         for item in range(len(board)):
@@ -181,7 +184,7 @@ def continent_counter(world, column, row):
         # row above left column
         size = size + continent_counter(world, column - 1, row - 1)
         # row above above column
-        size = size + continent_counter(world, column,     row - 1)
+        size = size + continent_counter(world, column, row - 1)
         # row above right column
         size = size + continent_counter(world, column + 1, row - 1)
 
@@ -193,7 +196,7 @@ def continent_counter(world, column, row):
         # row below left column
         size = size + continent_counter(world, column - 1, row + 1)
         # row below below column
-        size = size + continent_counter(world, column,     row + 1)
+        size = size + continent_counter(world, column, row + 1)
         # row below right column
         size = size + continent_counter(world, column + 1, row + 1)
 
@@ -251,11 +254,11 @@ def find_largest_n_continents(world, n):
 
     if len(continents) >= n:
         # for item in range(n):
-            # https://docs.python.org/3.7/library/stdtypes.html#list.sort
-            # https://docs.python.org/3.7/library/stdtypes.html#dict.get
-            sorted_continents = [(k, continents[k]) for k in sorted(continents, key=continents.get, reverse=True)]
-            for item in range(n):
-                largest_n_continents[sorted_continents[item][0]] = sorted_continents[item][1]
+        # https://docs.python.org/3.7/library/stdtypes.html#list.sort
+        # https://docs.python.org/3.7/library/stdtypes.html#dict.get
+        sorted_continents = [(k, continents[k]) for k in sorted(continents, key=continents.get, reverse=True)]
+        for item in range(n):
+            largest_n_continents[sorted_continents[item][0]] = sorted_continents[item][1]
 
     return largest_n_continents
 
@@ -293,7 +296,7 @@ my_dict = {
 
 my_dict["new_key"] = my_dict["a"]
 
-del(my_dict["a"])
+del (my_dict["a"])
 
 print(my_dict)
 
@@ -368,7 +371,7 @@ print("\n", len(who_am_i), "\n")
 for i, k in enumerate(who_am_i):
     print(i, k)
 
-del(who_am_i["skin_type"])
+del (who_am_i["skin_type"])
 
 print("\n", sorted(who_am_i))
 
@@ -379,7 +382,6 @@ print("\n", who_am_i)
 who_am_i["skin_type"] = "pail white"
 
 print("\n", who_am_i)
-
 
 # 15. Mapping with cities and states/regions in your country or some other country.
 
@@ -443,14 +445,13 @@ print()
 for region, county in italian_regions_to_county.items():
     # Return the value for key if key is in the dictionary, else default.
     # If default is not given, it defaults to None, so that this method never raises a KeyError.
-    print("%s has the city %s which is abbreviated as %s" % (region, county, italian_county_to_abbreviations.get(county)))
-
+    print(
+        "%s has the city %s which is abbreviated as %s" % (region, county, italian_county_to_abbreviations.get(county)))
 
 # 16. Find the Python documentation for dictionaries and try to do even more things to them.
 
 
 print("\nExercise Python documentation for dictionaries")
-
 
 # ways of initializing
 a = dict(one=1, two=2, three=3)
@@ -462,11 +463,9 @@ e = dict({'three': 3, 'one': 1, 'two': 2})
 if a == b == c == d == e:
     print("lots of ways of initializing dictionaries")
 
-
 # check for keys
 if "four" in a:
     print("there is no number 4 in the dictionary")
-
 
 # get keys
 print(a.get("four"))
@@ -521,11 +520,72 @@ def sort_dict_by_key(dictionary):
 # interaction and instantiate a student variable for everyone who shared their dream.
 
 
+class Student():
+    def __init__(self, name, discord_id, fav_food, dream):
+        self.name = name
+        self.discord_id = discord_id
+        self.fav_food = fav_food
+        self.dream = dream
+
+
+s1 = Student("Virginia Balseiro", "yesvirginia [Gold] [Volunteer]", "pasta", "moving to Europe")
+
+s2 = Student("Deb Cupitt", "deb[Gold]", "chocolate", "gender equity")
+
+s3 = Student("Marta Bodojra", "marta [Gold] [Volunteer]", "dark chocolate", "become a developer and help all of you "
+                                                                            "to do it together!😉")
+
+s4 = Student("Cristina Tarantino", "CristyTarantino", "Nutella", "became a great software engineer")
+
 # 20. Translate the real world 1MWTT student into a Student class,
 # decide on all the attributes that would be meaningful.
 # Hint: You can start with the DIY signup form https://memberportal.1millionwomentotech.com/diy
 # but feel free to be creative and add/modify as you see it best! This is the REAL work of a creator
 # to find the meaningful description of reality and translate it for computers.
+
+
+class Person():
+    def __init__(self, firstname, lastname, country=None):
+        self.firstname = firstname
+        self.lastname = lastname
+        self.country = country
+
+
+class Student(Person):
+    def __init__(self, firstname, lastname, email, githum_id=None):
+        self.email = email
+        self.githum_id = githum_id
+        super().__init__(self, firstname, lastname)
+
+
+class DiyMember(Student):
+    role = "diy"
+    kartra_membership = "diy"
+    discord_channel_access = ["learner-questions"]
+    hackathons = {}
+
+
+class GoldMemmer(DiyMember):
+    role = "gold"
+    kartra_membership = "gold"
+    discord_channel_access = ["learner-questions", "gold"]
+    git_private_repos = []
+    hackathons = {}
+    homework = {}
+    certifications = {}
+    support_tickets = {}
+
+
+class VipMember(GoldMemmer):
+    role = "vip"
+    kartra_membership = "vip"
+    discord_channel_access = ["learner-questions", "gold", "vip"]
+    git_private_repos = []
+    hackathons = {}
+    homework = {}
+    certifications = {}
+    career_accelerator = True
+    support_tickets = {}
 
 
 # 21. Write some more songs using this and make sure you understand that you're passing a list of strings as the lyrics.
