@@ -250,14 +250,12 @@ def find_largest_n_continents(world, n):
         n = len(continents)
 
     if len(continents) >= n:
-        for item in range(n):
-            # https://docs.python.org/3.7/library/functions.html#max
+        # for item in range(n):
+            # https://docs.python.org/3.7/library/stdtypes.html#list.sort
             # https://docs.python.org/3.7/library/stdtypes.html#dict.get
-            # max return the largest item in an iterable
-            # dict.get return the value for key if key is in the dictionary, else default.
-            largest_continent = max(continents, key=continents.get)
-            largest_n_continents[largest_continent] = continents[largest_continent]
-            del (continents[largest_continent])
+            sorted_continents = [(k, continents[k]) for k in sorted(continents, key=continents.get, reverse=True)]
+            for item in range(n):
+                largest_n_continents[sorted_continents[item][0]] = sorted_continents[item][1]
 
     return largest_n_continents
 
@@ -385,11 +383,133 @@ print("\n", who_am_i)
 
 # 15. Mapping with cities and states/regions in your country or some other country.
 
+print("\nExercise Mapping with cities and states/regions in your country or some other country")
+
+italian_regions_to_county = {
+    "Abruzzo": "L'Aquila",
+    "Basilicata": "Potenza",
+    "Calabria": "Catanzaro",
+    "Campania": "Napoli",
+    "Emilia-Romagna": "Bologna",
+    "Friuli-Venezia Giulia": "Trieste",
+    "Lazio": "Roma",
+    "Liguaria": "Genova",
+    "Lombardia": "Milano",
+    "Marche": "Ancona",
+    "Molise": "Campobasso",
+    "Piemonte": "Torino",
+    "Puglia": "Bari",
+    "Sardegna": "Cagliari",
+    "Sicilia": "Palermo",
+    "Toscana": "Firenze",
+    "Trentino-Alto Adige": "Trento",
+    "Umbria": "Perugia",
+    "Valle d'Aosta": "Aosta",
+    "Veneto": "Venezia"
+}
+
+italian_county_to_abbreviations = {
+    "L'Aquila": "AQ",
+    "Potenza": "PZ",
+    "Catanzaro": "CZ",
+    "Napoli": "NA",
+    "Bologna": "BO",
+    "Trieste": "TS",
+    "Roma": "RM",
+    "Genova": "GE",
+    "Milano": "MI",
+    "Ancona": "AN",
+    "Campobasso": "CB",
+    "Torino": "TO",
+    "Bari": "BA",
+    "Cagliari": "CA",
+    "Palermo": "PA",
+    "Firenze": "FI",
+    "Trento": "TN",
+    "Perugia": "PG",
+    "Aosta": "AO",
+    "Venezia": "VE"
+}
+
+print()
+for region, county in italian_regions_to_county.items():
+    print("%s has the city %s" % (region, county))
+
+print()
+for county, abbrv in italian_county_to_abbreviations.items():
+    print("%s is abbreviated as %s" % (county, abbrv))
+
+print()
+for region, county in italian_regions_to_county.items():
+    # Return the value for key if key is in the dictionary, else default.
+    # If default is not given, it defaults to None, so that this method never raises a KeyError.
+    print("%s has the city %s which is abbreviated as %s" % (region, county, italian_county_to_abbreviations.get(county)))
+
 
 # 16. Find the Python documentation for dictionaries and try to do even more things to them.
 
 
+print("\nExercise Python documentation for dictionaries")
+
+
+# ways of initializing
+a = dict(one=1, two=2, three=3)
+b = {"one": 1, "two": 2, "three": 3}
+c = dict(zip(["one", "two", "three"], [1, 2, 3]))
+d = dict([("two", 2), ("one", 1), ("three", 3)])
+e = dict({'three': 3, 'one': 1, 'two': 2})
+
+if a == b == c == d == e:
+    print("lots of ways of initializing dictionaries")
+
+
+# check for keys
+if "four" in a:
+    print("there is no number 4 in the dictionary")
+
+
+# get keys
+print(a.get("four"))
+print(a.get("one"))
+
+print(a.items())
+
+# pop
+print("\nRemove one with pop")
+print(a.pop("one"))
+print(a)
+
+print("\nAdd the pop key")
+print(a.setdefault("one"))
+print(a)
+
+tmp_a = {"twenty-six": 26, "one": 1}
+print(a.update(tmp_a))
+print(a)
+
+
 # 17. Find out what you can't do with dictionaries. A big one is that they do not have order, so try playing with that.
+def sort_dict_by_numeric_value(dictionary):
+    sorted_dictionary = {}
+
+    # https://docs.python.org/3.7/library/stdtypes.html#list.sort
+    # sorted(dictionary, key=dictionary.get, reverse=True)
+    # returns the array of keys sorted my value. Do to that we use
+    # the keyword key (sortBy) that specifies a function of one argument that is used to extract a
+    # comparison key from each list element
+    for k, v in [(k, dictionary[k]) for k in sorted(dictionary, key=dictionary.get, reverse=True)]:
+        sorted_dictionary[k] = v
+
+    return sorted_dictionary
+
+
+def sort_dict_by_key(dictionary):
+    sorted_dictionary = {}
+    for key in sorted(dictionary):
+        sorted_dictionary[key] = dictionary[key]
+
+    return sorted_dictionary
+
 
 # 18. Write a test to check the outcome of the alice_in_wonderfland task:
 # one test for list of lists, and one test for dictionary output.
