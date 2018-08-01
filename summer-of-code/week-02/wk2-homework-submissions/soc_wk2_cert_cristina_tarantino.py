@@ -1,5 +1,5 @@
 """
-Description - Week 1 homework for 1mwtt program
+Description - Week 2 homework for 1mwtt program
 Author - Cristina Tarantino
 Date - July 2018
 """
@@ -286,7 +286,7 @@ def find_largest_n_continents(world, n):
 # 12. Modify "a" for another name in my_dict.
 # Hint: you will have to create a new key-value pair, copy in the value, and then delete the old one.
 
-print("\nExercise Modify key name in my_dict\n")
+print("\nExercise Modify key name in my_dict")
 
 my_dict = {
     "a": 35000,
@@ -294,11 +294,13 @@ my_dict = {
     "z": 450
 }
 
+print("\nOridinal dictionary: ", my_dict)
+
 my_dict["new_key"] = my_dict["a"]
 
 del (my_dict["a"])
 
-print(my_dict)
+print("\nModified dictionary: ", my_dict)
 
 
 # 13. Redo the frequency distribution of alice_in_wonderland.txt and save your result in a dictionary.
@@ -358,30 +360,32 @@ who_am_i = {
     "marital_status": "married"
 }
 
-print("\n", who_am_i)
+print("\nThis is me: ", who_am_i)
+
+print("\nThis is me in a clearer format: \n")
 
 # loop
 for k, v in who_am_i.items():
     print(k, ":", v)
 
-print("\n", who_am_i.keys())
-print("\n", who_am_i.values())
-print("\n", len(who_am_i), "\n")
+print("\nThese are my keys: ", who_am_i.keys())
+print("\nThese are my values: ", who_am_i.values())
+print("\nThis is my length: ", len(who_am_i), "\n")
 
 for i, k in enumerate(who_am_i):
-    print(i, k)
+    print("This is the %s position of my key %s in my dictionary" % (i, k))
 
 del (who_am_i["skin_type"])
 
-print("\n", sorted(who_am_i))
+print("\nSort my dictionary keys: ", sorted(who_am_i))
 
 who_am_i["skin_type"] = "ghost"
 
-print("\n", who_am_i)
+print("\nUpdated my skin_type: ", who_am_i)
 
 who_am_i["skin_type"] = "pail white"
 
-print("\n", who_am_i)
+print("\nRe-updated my skin_type: ", who_am_i)
 
 # 15. Mapping with cities and states/regions in your country or some other country.
 
@@ -451,7 +455,7 @@ for region, county in italian_regions_to_county.items():
 # 16. Find the Python documentation for dictionaries and try to do even more things to them.
 
 
-print("\nExercise Python documentation for dictionaries")
+print("\nExercise Python documentation for dictionaries\n")
 
 # ways of initializing
 a = dict(one=1, two=2, three=3)
@@ -461,29 +465,27 @@ d = dict([("two", 2), ("one", 1), ("three", 3)])
 e = dict({'three': 3, 'one': 1, 'two': 2})
 
 if a == b == c == d == e:
-    print("lots of ways of initializing dictionaries")
+    print("Lots of ways of initializing dictionaries: \n", a, "\n", b, "\n", c, "\n", d, "\n", e)
 
 # check for keys
 if "four" in a:
-    print("there is no number 4 in the dictionary")
+    print("\nThere is no number 4 in the dictionary: ", a.get("four"))
 
 # get keys
-print(a.get("four"))
-print(a.get("one"))
+print("\nThere is no number 4 in the dictionary: ", a.get("four"))
+print("\nBut there is a 1 number: ", a.get("one"))
 
-print(a.items())
+print("\nLet's print an array of our dictionary key value pairs: ", a.items())
 
 # pop
-print("\nRemove one with pop")
-print(a.pop("one"))
+print("\nRemove one with pop: ", a.pop("one"))
 print(a)
 
-print("\nAdd the pop key")
-print(a.setdefault("one"))
+print("\nAdd a key without values: ", a.setdefault("one"))
 print(a)
 
 tmp_a = {"twenty-six": 26, "one": 1}
-print(a.update(tmp_a))
+print("\nUpdate our dictionary by merging a new one: ", a.update(tmp_a))
 print(a)
 
 
@@ -520,7 +522,7 @@ def sort_dict_by_key(dictionary):
 # interaction and instantiate a student variable for everyone who shared their dream.
 
 
-class Student():
+class Student:
     def __init__(self, name, discord_id, fav_food, dream):
         self.name = name
         self.discord_id = discord_id
@@ -612,7 +614,7 @@ class Volunteer(Person):
 
 print("\nExercise Song class")
 
-
+# TODO check how to test classes
 class Song(object):
     def __init__(self, lyrics):
         self.lyrics = lyrics
@@ -634,6 +636,15 @@ happy_bday.sing_me_a_song()
 print()
 bulls_on_parade.sing_me_a_song()
 
+new_song = Song(["Meraviglioso", "ma come non ti accorgi", "di quanto il mondo sia", "meraviglioso"])
+
+print()
+new_song.sing_me_a_song()
+
+
+# 22. Put the lyrics in a separate variable, then pass that variable to the class to use instead.
+
+
 famous = [
     "Man I can understand how it might be",
     "Kinda hard to love a girl like me",
@@ -646,11 +657,6 @@ famous_song = Song(famous)
 
 print()
 famous_song.sing_me_a_song()
-
-
-# 22. Put the lyrics in a separate variable, then pass that variable to the class to use instead.
-
-# I have done it above
 
 
 # install pip, NLTK, Anaconda and Jupyter Notebook
