@@ -537,6 +537,7 @@ s3 = Student("Marta Bodojra", "marta [Gold] [Volunteer]", "dark chocolate", "bec
 
 s4 = Student("Cristina Tarantino", "CristyTarantino", "Nutella", "became a great software engineer")
 
+
 # 20. Translate the real world 1MWTT student into a Student class,
 # decide on all the attributes that would be meaningful.
 # Hint: You can start with the DIY signup form https://memberportal.1millionwomentotech.com/diy
@@ -544,7 +545,7 @@ s4 = Student("Cristina Tarantino", "CristyTarantino", "Nutella", "became a great
 # to find the meaningful description of reality and translate it for computers.
 
 
-class Person():
+class Person:
     def __init__(self, firstname, lastname, country=None):
         self.firstname = firstname
         self.lastname = lastname
@@ -588,18 +589,68 @@ class VipMember(GoldMemmer):
     support_tickets = {}
 
 
+class Mentor(Person):
+    def __init__(self, firstname, lastname, email, knowhow, availability=None, githum_id=None):
+        self.email = email
+        self.githum_id = githum_id
+        self.knowhow = knowhow
+        self.availability = availability
+        super().__init__(self, firstname, lastname)
+
+
+class Volunteer(Person):
+    role = None
+
+    def __init__(self, firstname, lastname, email, availability=None, githum_id=None):
+        self.email = email
+        self.githum_id = githum_id
+        self.availability = availability
+        super().__init__(self, firstname, lastname)
+
+
 # 21. Write some more songs using this and make sure you understand that you're passing a list of strings as the lyrics.
+
+print("\nExercise Song class")
+
+
+class Song(object):
+    def __init__(self, lyrics):
+        self.lyrics = lyrics
+
+    def sing_me_a_song(self):
+        for line in self.lyrics:
+            print(line)
+
+
+happy_bday = Song(["Happy birthday to you", "I don't want to get sued",
+                   "So I'll stop right there"])
+
+bulls_on_parade = Song(["They rally around the family",
+                        "With pockets full of shells"])
+
+print()
+happy_bday.sing_me_a_song()
+
+print()
+bulls_on_parade.sing_me_a_song()
+
+famous = [
+    "Man I can understand how it might be",
+    "Kinda hard to love a girl like me",
+    "I don't blame you much for wanting to be free",
+    "I just wanted you to know",
+    "Swizz told me let the beat rock"
+]
+
+famous_song = Song(famous)
+
+print()
+famous_song.sing_me_a_song()
 
 
 # 22. Put the lyrics in a separate variable, then pass that variable to the class to use instead.
 
-
-# 23. See if you can hack on this and make it do more things.
-# Don't worry if you have no idea how,
-# just give it a try, see what happens. Break it, trash it, thrash it, you can't hurt it.
-
-# 24. Search online for "object-oriented programming" and try to overflow your brain with what you read.
-# Don't worry if it makes absolutely no sense to you. Half of that stuff makes no sense to me too.
+# I have done it above
 
 
 # install pip, NLTK, Anaconda and Jupyter Notebook
