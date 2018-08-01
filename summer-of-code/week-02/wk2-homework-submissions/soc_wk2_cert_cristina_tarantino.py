@@ -641,8 +641,8 @@ new_song = Song(["Meraviglioso", "ma come non ti accorgi", "di quanto il mondo s
 print()
 new_song.sing_me_a_song()
 
-# 22. Put the lyrics in a separate variable, then pass that variable to the class to use instead.
 
+# 22. Put the lyrics in a separate variable, then pass that variable to the class to use instead.
 
 famous = [
     "Man I can understand how it might be",
@@ -656,6 +656,7 @@ famous_song = Song(famous)
 
 print()
 famous_song.sing_me_a_song()
+
 
 # install pip, NLTK, Anaconda and Jupyter Notebook
 
