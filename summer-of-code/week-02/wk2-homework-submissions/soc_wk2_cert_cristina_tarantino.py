@@ -614,6 +614,7 @@ class Volunteer(Person):
 
 print("\nExercise Song class")
 
+
 # TODO check how to test classes
 class Song(object):
     def __init__(self, lyrics):
@@ -641,7 +642,6 @@ new_song = Song(["Meraviglioso", "ma come non ti accorgi", "di quanto il mondo s
 print()
 new_song.sing_me_a_song()
 
-
 # 22. Put the lyrics in a separate variable, then pass that variable to the class to use instead.
 
 
@@ -658,7 +658,6 @@ famous_song = Song(famous)
 print()
 famous_song.sing_me_a_song()
 
-
 # install pip, NLTK, Anaconda and Jupyter Notebook
 
 # DONE although it's hard to demonstrate I have done it
@@ -667,3 +666,5 @@ famous_song.sing_me_a_song()
 # from http://www.nltk.org/book/ch01.html _☼
 # Compare the lexical diversity scores for humor and romance fiction in 1.1. Which genre is more lexically diverse?
 # http://jfine-python-classes.readthedocs.io/en/latest/subclass-int.html
+
+# please reefer to file soc_wk2_cert_cristina_tarantino.ipynb
