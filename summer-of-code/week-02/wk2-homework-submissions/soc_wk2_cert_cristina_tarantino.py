@@ -615,7 +615,6 @@ class Volunteer(Person):
 print("\nExercise Song class")
 
 
-# TODO check how to test classes
 class Song(object):
     def __init__(self, lyrics):
         self.lyrics = lyrics

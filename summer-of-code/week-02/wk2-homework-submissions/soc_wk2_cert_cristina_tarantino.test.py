@@ -531,5 +531,6 @@ class TestSong(unittest.TestCase):
         happy_bday.sing_me_a_song()
         self.assertEqual(mock_stdout.getvalue(), expected_result)
 
+
 if __name__ == '__main__':
     unittest.main()
