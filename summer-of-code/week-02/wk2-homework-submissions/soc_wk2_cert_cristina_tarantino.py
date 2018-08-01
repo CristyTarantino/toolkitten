@@ -1,7 +1,7 @@
 """
 Description - Week 2 homework for 1mwtt program
 Author - Cristina Tarantino
-Date - July 2018
+Date - August 2018
 """
 
 # https://docs.python.org/2/library/string.html

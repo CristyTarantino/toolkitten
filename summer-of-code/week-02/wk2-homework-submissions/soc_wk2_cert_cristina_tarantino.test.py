@@ -1,3 +1,9 @@
+"""
+Description - Test Week 2 homework for 1mwtt program
+Author - Cristina Tarantino
+Date - August 2018
+"""
+
 # Intro to Python testing
 # Testing Taxonomies: https://wiki.python.org/moin/PythonTestingToolsTaxonomy
 
