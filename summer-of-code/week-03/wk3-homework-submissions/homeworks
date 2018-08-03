@@ -1,0 +1,53 @@
+Day 1.
+
+
+For Certification we require you to submit a file with solutions to Exercises #5 and #6
+
+☼ Compare the lexical diversity scores for humor and romance fiction in 1.1. Which genre is more lexically diverse?
+
+☼ Produce a dispersion plot of the four main protagonists in Sense and Sensibility: Elinor, Marianne, Edward, and Willoughby. What can you observe about the different roles played by the males and females in this novel? Can you identify the couples?
+
+
+Day 2.
+
+type up the whole Chapter 2 (the whole of http://www.nltk.org/book/ch02.html)
+exercises 8 and 10
+◑ Define a conditional frequency distribution over the Names corpus that allows you to see which initial letters are more frequent for males vs. females (cf. 4.4).
+◑ Read the BBC News article: UK's Vicky Pollards 'left behind' http://news.bbc.co.uk/1/hi/education/6173441.stm. The article gives the following statistic about teen language: "the top 20 words used, including yeah, no, but and like, account for around a third of all words." How many word types account for a third of all word tokens, for a variety of text sources? What do you conclude about this statistic? Read more about this on LanguageLog, at http://itre.cis.upenn.edu/~myl/languagelog/archives/003993.html.
+
+Day 3.
+
+Homework
+Do research to see what Python libraries are already in existence that you could start using in your day-job, or daily life.
+
+Exercises on WordNet
+
+#5 ☼ Investigate the holonym-meronym relations for some nouns. Remember that there are three kinds of holonym-meronym relation, so you need to use: member_meronyms(), part_meronyms(), substance_meronyms(), member_holonyms(), part_holonyms(), and substance_holonyms().
+#13 ◑ What percentage of noun synsets have no hyponyms? You can get all noun synsets using wn.all_synsets('n').
+#14 ◑ Define a function supergloss(s) that takes a synset s as its argument and returns a string consisting of the concatenation of the definition of s, and the definitions of all the hypernyms and hyponyms of s.
+Optional
+For those of you more advanced, try implementing
+
+- #23 ★ Zipf's Law: Let f(w) be the frequency of a word w in free text. Suppose that all the words of a text are ranked according to their frequency, with the most frequent word first. Zipf's law states that the frequency of a word type is inversely proportional to its rank (i.e. f × r = k, for some constant k). For example, the 50th most common word type should occur three times as frequently as the 150th most common word type.
+
+Write a function to process a large text and plot word frequency against word rank using pylab.plot. Do you confirm Zipf's law? (Hint: it helps to use a logarithmic scale). What is going on at the extreme ends of the plotted line?
+
+Generate random text, e.g., using random.choice("abcdefg "), taking care to include the space character. You will need to import random first. Use the string concatenation operator to accumulate characters into a (very) long string. Then tokenize this string, and generate the Zipf plot as before, and compare the two plots. What do you make of Zipf's Law in the light of this?
+
+Day 4.
+
+Exercises 6 - 10
+
+☼ Describe the class of strings matched by the following regular expressions.
+
+[a-zA-Z]+ [A-Z][a-z] p[aeiou]{,2}t \d+(.\d+)? ([^aeiou][aeiou][^aeiou]) \w+|[^\w\s]+ Test your answers using nltk.re_show().
+
+☼ Write regular expressions to match the following classes of strings:
+
+A single determiner (assume that a, an, and the are the only determiners). An arithmetic expression using integers, addition, and multiplication, such as 2*3+8. ☼ Write a utility function that takes a URL as its argument, and returns the contents of the URL, with all HTML markup removed. Use from urllib import request and then request.urlopen('http://nltk.org/').read().decode('utf8') to access the contents of the URL.
+
+☼ Save some text into a file corpus.txt. Define a function load(f) that reads from the file named in its sole argument, and returns a string containing the text of the file.
+
+Use nltk.regexp_tokenize() to create a tokenizer that tokenizes the various kinds of punctuation in this text. Use one multi-line regular expression, with inline comments, using the verbose flag (?x). Use nltk.regexp_tokenize() to create a tokenizer that tokenizes the following kinds of expression: monetary amounts; dates; names of people and organizations. ☼ Rewrite the following loop as a list comprehension:
+
+sent = ['The', 'dog', 'gave', 'John', 'the', 'newspaper'] result = [] for word in sent: ... word_len = (word, len(word)) ... result.append(word_len) result [('The', 3), ('dog', 3), ('gave', 4), ('John', 4), ('the', 3), ('newspaper', 9)]
