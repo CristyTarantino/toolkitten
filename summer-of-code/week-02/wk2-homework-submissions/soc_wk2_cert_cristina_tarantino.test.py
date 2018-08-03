@@ -1,3 +1,9 @@
+"""
+Description - Test Week 2 homework for 1mwtt program
+Author - Cristina Tarantino
+Date - August 2018
+"""
+
 # Intro to Python testing
 # Testing Taxonomies: https://wiki.python.org/moin/PythonTestingToolsTaxonomy
 
@@ -517,6 +523,19 @@ class TestCharFrequencyDictOnlyPresentAlphas(unittest.TestCase):
                            'y': 2584, 'z': 80}
 
         self.assertEqual(homework.char_frequency_dict_only_present_alphas(read_data), expected_result)
+
+class TestSong(unittest.TestCase):
+    @mock.patch('sys.stdout', new_callable=StringIO)
+    def test_sing_me_a_song(self, mock_stdout):
+        lyric = ["Happy birthday to you",
+                 "I don't want to get sued",
+                 "So I'll stop right there"]
+
+        expected_result = lyric[0] + "\n" + lyric[1] + "\n" + lyric[2] + "\n"
+
+        happy_bday = homework.Song(lyric)
+        happy_bday.sing_me_a_song()
+        self.assertEqual(mock_stdout.getvalue(), expected_result)
 
 
 if __name__ == '__main__':

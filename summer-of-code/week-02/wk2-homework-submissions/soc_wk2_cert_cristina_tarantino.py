@@ -1,13 +1,14 @@
 """
-Description - Week 1 homework for 1mwtt program
+Description - Week 2 homework for 1mwtt program
 Author - Cristina Tarantino
-Date - July 2018
+Date - August 2018
 """
 
 # https://docs.python.org/2/library/string.html
 from string import ascii_lowercase, ascii_uppercase
 import operator
 import random
+
 
 # TODO test this
 def get_input_number(msg):
@@ -21,6 +22,7 @@ def get_input_number(msg):
     # else execute the input manipulation and break the infinite loop
     else:
         return user_number
+
 
 # DAY 1
 # 1. Calculate a table for each letter in the alphabet from a-z,
@@ -88,7 +90,7 @@ for i in range(65, 65 + 2 * 29):
 
 def numbers_to_letters():
     for c in range(65, 65 + 2 * 29):
-        if 90 < c < 97:     # or if chr(c).isalpha():
+        if 90 < c < 97:  # or if chr(c).isalpha():
             continue
         print(chr(c))
 
@@ -150,6 +152,7 @@ def print_board(board):
         for item in row:
             print(item)
 
+
 # def print_board(board):
 #     for row in range(len(board)):
 #         for item in range(len(board)):
@@ -181,7 +184,7 @@ def continent_counter(world, column, row):
         # row above left column
         size = size + continent_counter(world, column - 1, row - 1)
         # row above above column
-        size = size + continent_counter(world, column,     row - 1)
+        size = size + continent_counter(world, column, row - 1)
         # row above right column
         size = size + continent_counter(world, column + 1, row - 1)
 
@@ -193,7 +196,7 @@ def continent_counter(world, column, row):
         # row below left column
         size = size + continent_counter(world, column - 1, row + 1)
         # row below below column
-        size = size + continent_counter(world, column,     row + 1)
+        size = size + continent_counter(world, column, row + 1)
         # row below right column
         size = size + continent_counter(world, column + 1, row + 1)
 
@@ -251,11 +254,11 @@ def find_largest_n_continents(world, n):
 
     if len(continents) >= n:
         # for item in range(n):
-            # https://docs.python.org/3.7/library/stdtypes.html#list.sort
-            # https://docs.python.org/3.7/library/stdtypes.html#dict.get
-            sorted_continents = [(k, continents[k]) for k in sorted(continents, key=continents.get, reverse=True)]
-            for item in range(n):
-                largest_n_continents[sorted_continents[item][0]] = sorted_continents[item][1]
+        # https://docs.python.org/3.7/library/stdtypes.html#list.sort
+        # https://docs.python.org/3.7/library/stdtypes.html#dict.get
+        sorted_continents = [(k, continents[k]) for k in sorted(continents, key=continents.get, reverse=True)]
+        for item in range(n):
+            largest_n_continents[sorted_continents[item][0]] = sorted_continents[item][1]
 
     return largest_n_continents
 
@@ -283,7 +286,7 @@ def find_largest_n_continents(world, n):
 # 12. Modify "a" for another name in my_dict.
 # Hint: you will have to create a new key-value pair, copy in the value, and then delete the old one.
 
-print("\nExercise Modify key name in my_dict\n")
+print("\nExercise Modify key name in my_dict")
 
 my_dict = {
     "a": 35000,
@@ -291,11 +294,13 @@ my_dict = {
     "z": 450
 }
 
+print("\nOridinal dictionary: ", my_dict)
+
 my_dict["new_key"] = my_dict["a"]
 
-del(my_dict["a"])
+del (my_dict["a"])
 
-print(my_dict)
+print("\nModified dictionary: ", my_dict)
 
 
 # 13. Redo the frequency distribution of alice_in_wonderland.txt and save your result in a dictionary.
@@ -355,31 +360,32 @@ who_am_i = {
     "marital_status": "married"
 }
 
-print("\n", who_am_i)
+print("\nThis is me: ", who_am_i)
+
+print("\nThis is me in a clearer format: \n")
 
 # loop
 for k, v in who_am_i.items():
     print(k, ":", v)
 
-print("\n", who_am_i.keys())
-print("\n", who_am_i.values())
-print("\n", len(who_am_i), "\n")
+print("\nThese are my keys: ", who_am_i.keys())
+print("\nThese are my values: ", who_am_i.values())
+print("\nThis is my length: ", len(who_am_i), "\n")
 
 for i, k in enumerate(who_am_i):
-    print(i, k)
+    print("This is the %s position of my key %s in my dictionary" % (i, k))
 
-del(who_am_i["skin_type"])
+del (who_am_i["skin_type"])
 
-print("\n", sorted(who_am_i))
+print("\nSort my dictionary keys: ", sorted(who_am_i))
 
 who_am_i["skin_type"] = "ghost"
 
-print("\n", who_am_i)
+print("\nUpdated my skin_type: ", who_am_i)
 
 who_am_i["skin_type"] = "pail white"
 
-print("\n", who_am_i)
-
+print("\nRe-updated my skin_type: ", who_am_i)
 
 # 15. Mapping with cities and states/regions in your country or some other country.
 
@@ -443,14 +449,13 @@ print()
 for region, county in italian_regions_to_county.items():
     # Return the value for key if key is in the dictionary, else default.
     # If default is not given, it defaults to None, so that this method never raises a KeyError.
-    print("%s has the city %s which is abbreviated as %s" % (region, county, italian_county_to_abbreviations.get(county)))
-
+    print(
+        "%s has the city %s which is abbreviated as %s" % (region, county, italian_county_to_abbreviations.get(county)))
 
 # 16. Find the Python documentation for dictionaries and try to do even more things to them.
 
 
-print("\nExercise Python documentation for dictionaries")
-
+print("\nExercise Python documentation for dictionaries\n")
 
 # ways of initializing
 a = dict(one=1, two=2, three=3)
@@ -460,31 +465,27 @@ d = dict([("two", 2), ("one", 1), ("three", 3)])
 e = dict({'three': 3, 'one': 1, 'two': 2})
 
 if a == b == c == d == e:
-    print("lots of ways of initializing dictionaries")
-
+    print("Lots of ways of initializing dictionaries: \n", a, "\n", b, "\n", c, "\n", d, "\n", e)
 
 # check for keys
 if "four" in a:
-    print("there is no number 4 in the dictionary")
-
+    print("\nThere is no number 4 in the dictionary: ", a.get("four"))
 
 # get keys
-print(a.get("four"))
-print(a.get("one"))
+print("\nThere is no number 4 in the dictionary: ", a.get("four"))
+print("\nBut there is a 1 number: ", a.get("one"))
 
-print(a.items())
+print("\nLet's print an array of our dictionary key value pairs: ", a.items())
 
 # pop
-print("\nRemove one with pop")
-print(a.pop("one"))
+print("\nRemove one with pop: ", a.pop("one"))
 print(a)
 
-print("\nAdd the pop key")
-print(a.setdefault("one"))
+print("\nAdd a key without values: ", a.setdefault("one"))
 print(a)
 
 tmp_a = {"twenty-six": 26, "one": 1}
-print(a.update(tmp_a))
+print("\nUpdate our dictionary by merging a new one: ", a.update(tmp_a))
 print(a)
 
 
@@ -521,6 +522,24 @@ def sort_dict_by_key(dictionary):
 # interaction and instantiate a student variable for everyone who shared their dream.
 
 
+class Student:
+    def __init__(self, name, discord_id, fav_food, dream):
+        self.name = name
+        self.discord_id = discord_id
+        self.fav_food = fav_food
+        self.dream = dream
+
+
+s1 = Student("Virginia Balseiro", "yesvirginia [Gold] [Volunteer]", "pasta", "moving to Europe")
+
+s2 = Student("Deb Cupitt", "deb[Gold]", "chocolate", "gender equity")
+
+s3 = Student("Marta Bodojra", "marta [Gold] [Volunteer]", "dark chocolate", "become a developer and help all of you "
+                                                                            "to do it together!😉")
+
+s4 = Student("Cristina Tarantino", "CristyTarantino", "Nutella", "became a great software engineer")
+
+
 # 20. Translate the real world 1MWTT student into a Student class,
 # decide on all the attributes that would be meaningful.
 # Hint: You can start with the DIY signup form https://memberportal.1millionwomentotech.com/diy
@@ -528,18 +547,115 @@ def sort_dict_by_key(dictionary):
 # to find the meaningful description of reality and translate it for computers.
 
 
+class Person:
+    def __init__(self, firstname, lastname, country=None):
+        self.firstname = firstname
+        self.lastname = lastname
+        self.country = country
+
+
+class Student(Person):
+    def __init__(self, firstname, lastname, email, githum_id=None):
+        self.email = email
+        self.githum_id = githum_id
+        super().__init__(self, firstname, lastname)
+
+
+class DiyMember(Student):
+    role = "diy"
+    kartra_membership = "diy"
+    discord_channel_access = ["learner-questions"]
+    hackathons = {}
+
+
+class GoldMemmer(DiyMember):
+    role = "gold"
+    kartra_membership = "gold"
+    discord_channel_access = ["learner-questions", "gold"]
+    git_private_repos = []
+    hackathons = {}
+    homework = {}
+    certifications = {}
+    support_tickets = {}
+
+
+class VipMember(GoldMemmer):
+    role = "vip"
+    kartra_membership = "vip"
+    discord_channel_access = ["learner-questions", "gold", "vip"]
+    git_private_repos = []
+    hackathons = {}
+    homework = {}
+    certifications = {}
+    career_accelerator = True
+    support_tickets = {}
+
+
+class Mentor(Person):
+    def __init__(self, firstname, lastname, email, knowhow, availability=None, githum_id=None):
+        self.email = email
+        self.githum_id = githum_id
+        self.knowhow = knowhow
+        self.availability = availability
+        super().__init__(self, firstname, lastname)
+
+
+class Volunteer(Person):
+    role = None
+
+    def __init__(self, firstname, lastname, email, availability=None, githum_id=None):
+        self.email = email
+        self.githum_id = githum_id
+        self.availability = availability
+        super().__init__(self, firstname, lastname)
+
+
 # 21. Write some more songs using this and make sure you understand that you're passing a list of strings as the lyrics.
+
+print("\nExercise Song class")
+
+
+class Song(object):
+    def __init__(self, lyrics):
+        self.lyrics = lyrics
+
+    def sing_me_a_song(self):
+        for line in self.lyrics:
+            print(line)
+
+
+happy_bday = Song(["Happy birthday to you", "I don't want to get sued",
+                   "So I'll stop right there"])
+
+bulls_on_parade = Song(["They rally around the family",
+                        "With pockets full of shells"])
+
+print()
+happy_bday.sing_me_a_song()
+
+print()
+bulls_on_parade.sing_me_a_song()
+
+new_song = Song(["Meraviglioso", "ma come non ti accorgi", "di quanto il mondo sia", "meraviglioso"])
+
+print()
+new_song.sing_me_a_song()
 
 
 # 22. Put the lyrics in a separate variable, then pass that variable to the class to use instead.
 
+famous = [
+    "Man I can understand how it might be",
+    "Kinda hard to love a girl like me",
+    "I don't blame you much for wanting to be free",
+    "I just wanted you to know",
+    "Swizz told me let the beat rock"
+]
 
-# 23. See if you can hack on this and make it do more things.
-# Don't worry if you have no idea how,
-# just give it a try, see what happens. Break it, trash it, thrash it, you can't hurt it.
+famous_song = Song(famous)
 
-# 24. Search online for "object-oriented programming" and try to overflow your brain with what you read.
-# Don't worry if it makes absolutely no sense to you. Half of that stuff makes no sense to me too.
+print()
+famous_song.sing_me_a_song()
 
 
 # install pip, NLTK, Anaconda and Jupyter Notebook
@@ -550,3 +666,5 @@ def sort_dict_by_key(dictionary):
 # from http://www.nltk.org/book/ch01.html _☼
 # Compare the lexical diversity scores for humor and romance fiction in 1.1. Which genre is more lexically diverse?
 # http://jfine-python-classes.readthedocs.io/en/latest/subclass-int.html
+
+# please reefer to file soc_wk2_cert_cristina_tarantino.ipynb
