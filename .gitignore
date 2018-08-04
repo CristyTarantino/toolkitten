@@ -71,5 +71,4 @@ venv
 nltk_data
 .ipynb_checkpoints
 *.pyc
-treebank
 
