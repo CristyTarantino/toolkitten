@@ -554,60 +554,104 @@ class Person:
         self.country = country
 
 
-class Student(Person):
+class User(Person):
+    uid = 0
+
+    # TODO add email validation
+    def __init__(self, firstname, lastname, email):
+        self.firstname = firstname
+        self.lastname = lastname
+        User.uid += 1
+        self.uid = User.uid
+        # super().__init__(firstname, lastname) Python3
+        # super(Person, self).__init__(firstname, lastname) Python 2
+        Person.__init__(self, firstname, lastname)  # most mentors recommended this
+
+
+class Student(User):
     def __init__(self, firstname, lastname, email, githum_id=None):
-        self.email = email
         self.githum_id = githum_id
-        super().__init__(self, firstname, lastname)
+        User.__init__(self, firstname, lastname, email)
+
+
+class Certification:
+    def __init__(self, homework):
+        self.week = homework.done
+
+
+class Homework:
+    def __init__(self, week):
+        self.week = week,
+        self.done = False
+        self.submission_date = None
+
+
+class Hackathon(Homework):
+    def __init__(self, week, challenge=None, solution=None):
+        self.challenge = challenge
+        self.solution = solution
+        self.submission_date_meet = None
+        self.reviewer = None
+        Homework.__init__(self, week)
+
+
+class Ticket:
+    id = 0
+    __status_types__ = ['open', 'closed', 'in progress']
+
+    def __init__(self, user, status):
+        if status not in Ticket.__status_types__:
+            raise ValueError("Invalid status type. Expected one of: %s" % Ticket.__status_types__)
+
+        Ticket.id += 1
+        self.id = Ticket.id
+        self.user = user
 
 
 class DiyMember(Student):
     role = "diy"
-    kartra_membership = "diy"
+    kartra_url = 'https://memberportal.1millionwomentotech.com/diy-login'
     discord_channel_access = ["learner-questions"]
-    hackathons = {}
+    hackathons = [Hackathon(i+1) for i in range(12)]
 
 
 class GoldMemmer(DiyMember):
     role = "gold"
-    kartra_membership = "gold"
+    kartra_url = 'https://memberportal.1millionwomentotech.com/gold-vip-login'
     discord_channel_access = ["learner-questions", "gold"]
-    git_private_repos = []
-    hackathons = {}
-    homework = {}
+    homework = [Homework(i+1) for i in range(12)]
     certifications = {}
     support_tickets = {}
 
 
 class VipMember(GoldMemmer):
     role = "vip"
-    kartra_membership = "vip"
-    discord_channel_access = ["learner-questions", "gold", "vip"]
     git_private_repos = []
-    hackathons = {}
-    homework = {}
-    certifications = {}
-    career_accelerator = True
-    support_tickets = {}
+    career_accelerator_meeting = False
+    meeting_notes = ''
+
+    def __init__(self):
+        self.discord_channel_access.append("vip")
+        super().__init__()
 
 
-class Mentor(Person):
-    def __init__(self, firstname, lastname, email, knowhow, availability=None, githum_id=None):
-        self.email = email
-        self.githum_id = githum_id
-        self.knowhow = knowhow
+class Mentor(User):
+    discord_channel_access = ["learner-questions", "gold", "vip", "mentors", "hackathons_solutions"]
+
+    def __init__(self, firstname, lastname, email, expertise, availability):
+        self.expertise = expertise
         self.availability = availability
-        super().__init__(self, firstname, lastname)
+        User.__init__(self, firstname, lastname, email)
 
 
-class Volunteer(Person):
-    role = None
+class Volunteer(User):
+    discord_channel_access = ["learner-questions", "gold", "vip", "mentors", "hackathons_solutions"]
 
-    def __init__(self, firstname, lastname, email, availability=None, githum_id=None):
-        self.email = email
-        self.githum_id = githum_id
+    def __init__(self, firstname, lastname, email, expertise, availability, community_role):
+        self.expertise = expertise
         self.availability = availability
-        super().__init__(self, firstname, lastname)
+        self.community_role = community_role
+        User.__init__(self, firstname, lastname, email)
 
 
 # 21. Write some more songs using this and make sure you understand that you're passing a list of strings as the lyrics.
