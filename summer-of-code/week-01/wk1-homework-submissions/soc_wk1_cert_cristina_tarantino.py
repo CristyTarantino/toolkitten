@@ -412,17 +412,19 @@ print("\nEXERCISE Old-school Roman numerals")
 
 def old_romans(number):
     result = ''
-    decimal = [1000, 500, 100, 50, 10, 5, 1]
-    roman = ["M", "D", "C", "L", "X", "V", "I"]
 
-    # looping over every element of our arrays
-    for i in range(len(decimal)):
-        # keep trying the same number until we need to move to a smaller one
-        while number%decimal[i] < number:
-            # add the matching roman number to our result string
-            result += roman[i]
-            # subtract the decimal value of the roman number from our number
-            number -= decimal[i]
+    if 1 < number < 3000:
+        decimal = [1000, 500, 100, 50, 10, 5, 1]
+        roman = ["M", "D", "C", "L", "X", "V", "I"]
+
+        # looping over every element of our arrays
+        for i in range(len(decimal)):
+            # keep trying the same number until we need to move to a smaller one
+            while number%decimal[i] < number:
+                # add the matching roman number to our result string
+                result += roman[i]
+                # subtract the decimal value of the roman number from our number
+                number -= decimal[i]
 
     return result
 
@@ -441,17 +443,19 @@ print("\nEXERCISE “Modern” Roman numerals.")
 
 def modern_romans(number):
     result = ''
-    decimal = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
-    roman = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"]
 
-    # looping over every element of our arrays
-    for i in range(len(decimal)):
-        # keep trying the same number until we need to move to a smaller one
-        while number%decimal[i] < number:
-            # add the matching roman number to our result string
-            result += roman[i]
-            # subtract the decimal value of the roman number from our number
-            number -= decimal[i]
+    if 1 < number < 3000:
+        decimal = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
+        roman = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"]
+
+        # looping over every element of our arrays
+        for i in range(len(decimal)):
+            # keep trying the same number until we need to move to a smaller one
+            while number%decimal[i] < number:
+                # add the matching roman number to our result string
+                result += roman[i]
+                # subtract the decimal value of the roman number from our number
+                number -= decimal[i]
 
     return result
 
