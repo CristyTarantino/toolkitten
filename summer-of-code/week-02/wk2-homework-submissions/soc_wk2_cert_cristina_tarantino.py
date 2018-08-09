@@ -4,13 +4,14 @@ Author - Cristina Tarantino
 Date - August 2018
 """
 
+# For python doc I followed https://www.python.org/dev/peps/pep-0257/
+
 # https://docs.python.org/2/library/string.html
 from string import ascii_lowercase, ascii_uppercase
 import operator
 import random
 
 
-# TODO test this
 def get_input_number(msg):
     # try to convert the input in an integer
     try:
@@ -29,13 +30,14 @@ def get_input_number(msg):
 # and count how many times each letter appears in `alice_in_wonderland.txt`
 # (fancy word for counting stuff is "frequency distribution" - because you are counting the frequency of something)
 
-
 def char_frequency_list_from_alphabet(text):
+    """Return a list of all the letters of the alphabet and their relative frequency in the given text param"""
+
     # generate a list of the alphabet in Python
     char_frequency_list = []
 
-    for c in ascii_lowercase:
-        char_frequency_list.append([c, 0])
+    for l in ascii_lowercase:
+        char_frequency_list.append([l, 0])
 
     # convert all to lowercase
     text = text.lower()
@@ -49,6 +51,9 @@ def char_frequency_list_from_alphabet(text):
 
 
 def char_frequency_list_only_present_alphas(text):
+    """Return a list of only the letters of the alphabet that are present in the text
+        and their relative frequency in the given text param"""
+
     char_frequency_list = []
 
     # convert all to lowercase
@@ -57,7 +62,7 @@ def char_frequency_list_only_present_alphas(text):
     # for every char in text
     for t in text:
         # check if the current char is in the first index of each element in char_frequency_list
-        visited_chars_list = [c[0] for c in char_frequency_list]
+        visited_chars_list = [ch[0] for ch in char_frequency_list]
         # if is not in not been added yet and is a letter then add it to the frequency list
         if t not in visited_chars_list and t.isalpha():
             value = text.count(t)
@@ -80,7 +85,7 @@ def char_frequency_list_only_present_alphas(text):
 print("\nExercise Fix the loop for correct char range\n")
 
 for i in range(65, 65 + 2 * 29):
-    if 90 < i < 97:
+    if 90 < i < 97:  # or if chr(c).isalpha():
         continue
     # Get the character given by an ASCII number
     print(i, " stand for ", chr(i))
@@ -89,71 +94,80 @@ for i in range(65, 65 + 2 * 29):
 # 3. numbers to letters. Make a function that prints A-Z and a-z
 
 def numbers_to_letters():
-    for c in range(65, 65 + 2 * 29):
-        if 90 < c < 97:  # or if chr(c).isalpha():
+    """Print A-Z and a-z"""
+
+    for char in range(65, 65 + 2 * 29):
+        if 90 < char < 97:  # or if chr(c).isalpha():
             continue
-        print(chr(c))
+        print(chr(char))
 
 
 # 4. Make a function that asks the user for a message, and turns it into a list of numbers. (It's a cypher ;))
 # "I LOVE YOU" [ 73, , 76, ...]
 
 def cypher_message():
+    """Asks the user for a message, and turns it into a list of numbers"""
+
     message = input("\nType a message for the love of your life: ")
     char_list = []
 
-    for c in message:
+    for cr in message:
         # Get the ASCII number of a character
-        char_list.append(ord(c))
+        char_list.append(ord(cr))
 
     return char_list
 
 
 # 5. Write a function that does a ceaser cypher (Google), ask the user a number, and shift their message by that number.
 
-def ceaser_cypher(function_verb, operation):
+def ceaser_cypher(operation):
+    """Asks the user for a message, and encrypts it or decrypts it depending on the given operation"""
+
     TOTAL_ALPHABET_NUM = len(ascii_lowercase)
     LOWER_ALPHABET_LOW_OFFSET = ord(ascii_lowercase[0])
     LOWER_ALPHABET_UPP_OFFSET = ord(ascii_uppercase[0])
 
     shifting_num = get_input_number("\nPlease type a number that will be used for the shifting strategy: ")
+    function_verb = "encrypted" if operator.sub.__name__ == 'sub' else "decrypted"
     message = input("\nPlease type a message to be %s: " % function_verb)
     encrypted_message = ""
 
-    for c in message:
-        if c.isalpha():
-            if c.islower():
+    for m in message:
+        if m.isalpha():
+            if m.islower():
                 offset = LOWER_ALPHABET_LOW_OFFSET
             else:
                 offset = LOWER_ALPHABET_UPP_OFFSET
 
-            letter_to_number = ord(c) - offset
-            encrypted_c = operation(letter_to_number, shifting_num) % TOTAL_ALPHABET_NUM
-            encrypted_message += chr(encrypted_c + offset)
+            letter_to_number = ord(m) - offset
+            encrypted_m = operation(letter_to_number, shifting_num) % TOTAL_ALPHABET_NUM
+            encrypted_message += chr(encrypted_m + offset)
         else:
-            encrypted_message += c
+            encrypted_message += m
 
     return encrypted_message
 
 
 def encryption_ceaser_cypher():
-    return ceaser_cypher("encrypted", operator.add)
+    return ceaser_cypher(operator.add)
 
 
 def decryption_ceaser_cypher():
-    return ceaser_cypher("decrypted", operator.sub)
+    return ceaser_cypher(operator.sub)
 
 
 # 6. Write a function that prints out all elements of the below board,
 # starting from the first element of the first line, till the end. Each line should be read from beginning to end.
 
 def print_board(board):
+    """Print out all elements of a given board"""
     for row in board:
         for item in row:
             print(item)
 
 
 # def print_board(board):
+#     """Prints out all elements of a given board"""
 #     for row in range(len(board)):
 #         for item in range(len(board)):
 #             print(board[item][row])
@@ -161,6 +175,7 @@ def print_board(board):
 
 # 7. Now write a function that prints out all elements in reverse.
 def print_reversed_board(board):
+    """Print out all elements of a given board in reverse"""
     for row in reversed(board):
         for item in reversed(row):
             print(item)
@@ -169,6 +184,13 @@ def print_reversed_board(board):
 # 8. There is one small bug in the continent counter above.
 # Can you find it and fix it? (Hint: change the world so that the continent borders the edge)
 def continent_counter(world, column, row):
+    """Returns the size of land given a words and coordinates x(column) and y(row)
+
+    Keyword arguments:
+    world   -- the board to be processed
+    column  -- coordinates x(column) from which start counting
+    row     -- coordinates Y(row) from which start counting
+    """
     if 0 < row < len(world) and 0 < column < len(world[0]):
         if world[row][column] != 'land':
             return 0
@@ -209,11 +231,12 @@ def continent_counter(world, column, row):
 
 
 def generate_random_board(n, m=None):
+    """ Generate an n x n sized board with either land or water chosen randomly """
+
     L = "land"
     W = "water"
 
-    if not m:
-        m = n
+    m = n if not m else m
 
     world = [[random.choice([L, W]) for column in range(m)] for row in range(n)]
 
@@ -233,6 +256,8 @@ def generate_random_board(n, m=None):
 # where key gives the coordinates of the beginning of the continent
 # and value is the area that continent expands through
 def find_continets(world):
+    """ Find the largest two continents an return them as a dictionary """
+
     continents = {}
 
     for row in range(len(world)):
@@ -245,6 +270,8 @@ def find_continets(world):
 
 
 def find_largest_n_continents(world, n):
+    """ Find the largest n continents an return them as a dictionary """
+
     continents = find_continets(world)
 
     largest_n_continents = {}
@@ -256,7 +283,7 @@ def find_largest_n_continents(world, n):
         # for item in range(n):
         # https://docs.python.org/3.7/library/stdtypes.html#list.sort
         # https://docs.python.org/3.7/library/stdtypes.html#dict.get
-        sorted_continents = [(k, continents[k]) for k in sorted(continents, key=continents.get, reverse=True)]
+        sorted_continents = [(ky, continents[ky]) for ky in sorted(continents, key=continents.get, reverse=True)]
         for item in range(n):
             largest_n_continents[sorted_continents[item][0]] = sorted_continents[item][1]
 
@@ -294,7 +321,7 @@ my_dict = {
     "z": 450
 }
 
-print("\nOridinal dictionary: ", my_dict)
+print("\nOriginal dictionary: ", my_dict)
 
 my_dict["new_key"] = my_dict["a"]
 
@@ -307,6 +334,8 @@ print("\nModified dictionary: ", my_dict)
 
 # return a dictionary of the entire alphabet and the frequency of each letter
 def char_frequency_dict_from_alphabet(text):
+    """Return a dictionary of all the letters of the alphabet and their relative frequency in the given text param"""
+
     # generate a dict of the alphabet in Python
     # The fromkeys() method creates a new dictionary
     # from the given sequence of elements with a value provided by the user.
@@ -327,6 +356,9 @@ def char_frequency_dict_from_alphabet(text):
 
 # return a dictionary of the letter present in the @param text and its frequency
 def char_frequency_dict_only_present_alphas(text):
+    """Return a dictionary of only the letters of the alphabet that are present in the text
+            and their relative frequency in the given text param"""
+
     char_frequency_dict = {}
 
     # convert all to lowercase
@@ -373,7 +405,7 @@ print("\nThese are my values: ", who_am_i.values())
 print("\nThis is my length: ", len(who_am_i), "\n")
 
 for i, k in enumerate(who_am_i):
-    print("This is the %s position of my key %s in my dictionary" % (i, k))
+    print("This is the {} position of my key {} in my dictionary".format(i, k))
 
 del (who_am_i["skin_type"])
 
@@ -491,6 +523,8 @@ print(a)
 
 # 17. Find out what you can't do with dictionaries. A big one is that they do not have order, so try playing with that.
 def sort_dict_by_numeric_value(dictionary):
+    """Sort a given dictionary by value"""
+
     sorted_dictionary = {}
 
     # https://docs.python.org/3.7/library/stdtypes.html#list.sort
@@ -498,21 +532,25 @@ def sort_dict_by_numeric_value(dictionary):
     # returns the array of keys sorted my value. Do to that we use
     # the keyword key (sortBy) that specifies a function of one argument that is used to extract a
     # comparison key from each list element
-    for k, v in [(k, dictionary[k]) for k in sorted(dictionary, key=dictionary.get, reverse=True)]:
-        sorted_dictionary[k] = v
+    for key, val in [(key, dictionary[key]) for key in sorted(dictionary, key=dictionary.get, reverse=True)]:
+        sorted_dictionary[key] = val
 
     return sorted_dictionary
 
 
 def sort_dict_by_key(dictionary):
+    """Sort a given dictionary by value"""
     sorted_dictionary = {}
     for key in sorted(dictionary):
         sorted_dictionary[key] = dictionary[key]
 
     return sorted_dictionary
 
+# N.B. You can do more advanced validation for numbers or letters and use try catch etc.
+# which I am not implementing due to time constraints
 
-# 18. Write a test to check the outcome of the alice_in_wonderfland task:
+
+# 18. Write a test to check the outcome of the alice_in_wonderland task:
 # one test for list of lists, and one test for dictionary output.
 
 # Please have a look at all the tests in the file soc_wk2_cert_cristina_tarantino.test.py
@@ -557,15 +595,18 @@ class Person:
 class User(Person):
     uid = 0
 
-    # TODO add email validation
-    def __init__(self, firstname, lastname, email):
+    # An email validation could be added and methods to manipulate the attributes
+    # A unique user validation too could be added
+    # however the time is tight and I will come back to this ones the soc is ended to experiment further
+    def __init__(self, firstname, lastname, email, country=None):
         self.firstname = firstname
         self.lastname = lastname
+        self.email = email
         User.uid += 1
         self.uid = User.uid
         # super().__init__(firstname, lastname) Python3
         # super(Person, self).__init__(firstname, lastname) Python 2
-        Person.__init__(self, firstname, lastname)  # most mentors recommended this
+        Person.__init__(self, firstname, lastname, country)  # most mentors recommended this
 
 
 class Student(User):
@@ -630,9 +671,9 @@ class VipMember(GoldMemmer):
     career_accelerator_meeting = False
     meeting_notes = ''
 
-    def __init__(self):
+    def __init__(self, firstname, lastname, email):
         self.discord_channel_access.append("vip")
-        super().__init__()
+        super().__init__(self, firstname, lastname, email)
 
 
 class Mentor(User):

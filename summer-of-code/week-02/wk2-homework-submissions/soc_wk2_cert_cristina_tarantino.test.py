@@ -14,6 +14,7 @@ import unittest
 from unittest import mock
 import random
 
+
 import soc_wk2_cert_cristina_tarantino as homework
 
 
@@ -43,6 +44,14 @@ class TestCharFrequencyListFromAlphabet(unittest.TestCase):
 
         self.assertEqual(homework.char_frequency_list_from_alphabet(read_data), expected_result)
 
+    def test_char_frequency_list_from_alphabet_non_alpha(self):
+        test_text = "Ciao. 1 50170 Cristina!!!"
+        expected_result = [['a', 2], ['b', 0], ['c', 2], ['d', 0], ['e', 0], ['f', 0], ['g', 0], ['h', 0], ['i', 3],
+                           ['j', 0], ['k', 0], ['l', 0], ['m', 0], ['n', 1], ['o', 1], ['p', 0], ['q', 0], ['r', 1],
+                           ['s', 1], ['t', 1], ['u', 0], ['v', 0], ['w', 0], ['x', 0], ['y', 0], ['z', 0]]
+
+        self.assertEqual(homework.char_frequency_list_from_alphabet(test_text), expected_result)
+
 
 class TestCharFrequencyListOnlyPresentAlphas(unittest.TestCase):
     def test_char_frequency_dict_only_present_alphas_string(self):
@@ -68,14 +77,24 @@ class TestCharFrequencyListOnlyPresentAlphas(unittest.TestCase):
 
         self.assertEqual(homework.char_frequency_list_only_present_alphas(read_data), expected_result)
 
+    def test_char_frequency_dict_only_present_alphas_non_alpha(self):
+        test_text = "Ciao. 1 50170 Cristina!!!"
+        expected_result = [['a', 2], ['c', 2], ['i', 3], ['n', 1], ['o', 1], ['r', 1], ['s', 1], ['t', 1]]
+
+        self.assertEqual(homework.char_frequency_list_only_present_alphas(test_text), expected_result)
+
 
 # https://learnbyexample.gitbooks.io/python-basics/content/Testing.html#using-unittest.mock-to-test-user-input-and-program-output
-# TODO research decorator and sys.stdout
 class TestNumbersToLetters(unittest.TestCase):
+
+    # capture the console into a mock
     @mock.patch('sys.stdout', new_callable=StringIO)
     def test_numbers_to_letters(self, mock_stdout):
-        expected_result = 'A\nB\nC\nD\nE\nF\nG\nH\nI\nJ\nK\nL\nM\nN\nO\nP\nQ\nR\nS\nT\nU\nV\nW\nX\nY\nZ\na\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk\nl\nm\nn\no\np\nq\nr\ns\nt\nu\nv\nw\nx\ny\nz\n'
+        expected_result = 'A\nB\nC\nD\nE\nF\nG\nH\nI\nJ\nK\nL\nM\nN\nO\nP\nQ\nR\nS\nT\nU\nV\nW\nX\nY\nZ' \
+                          '\na\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk\nl\nm\nn\no\np\nq\nr\ns\nt\nu\nv\nw\nx\ny\nz\n'
         homework.numbers_to_letters()
+
+        # get the value captured in the mock and compare it to the expected result
         self.assertEqual(mock_stdout.getvalue(), expected_result)
 
 
@@ -85,6 +104,7 @@ class TestCypherMessage(unittest.TestCase):
         expected_result = [67, 105, 97, 111, 32, 105, 111, 32, 115, 111, 110, 111, 32, 67, 114, 105, 115, 116, 105,
                            110, 97, 32, 101, 32, 116, 105, 32, 97, 109, 111, 32, 116, 97, 110, 116, 111]
 
+        # when the console requires an input return the value specified
         with mock.patch('builtins.input', return_value=test_text):
             self.assertEqual(homework.cypher_message(), expected_result)
 
@@ -95,6 +115,10 @@ class TestEncryptionCeaserCypher(unittest.TestCase):
         test_text = "Ciao io sono Cristina"
         expected_result = "Fldr lr vrqr Fulvwlqd"
 
+        # when the console requires an input return the values specified
+        # (by using side_effect you can specify an array of inputs)
+        # please refer to https://docs.python.org/3/library/unittest.mock.html for more info
+        # due to time constrains I only checked those subjects superficially
         with mock.patch('builtins.input', side_effect=[num, test_text]):
             self.assertEqual(homework.encryption_ceaser_cypher(), expected_result)
 
@@ -144,34 +168,34 @@ class TestDecryptionCeaserCypher(unittest.TestCase):
 class TestPrintBoard(unittest.TestCase):
     @mock.patch("sys.stdout", new_callable=StringIO)
     def test_print_board_eleven(self, mock_stdout):
-        M = "land"
-        o = "water"
+        L = "land"
+        W = "water"
 
         world = [
-            [o, o, o, o, o, o, o, o, o, o, o],
-            [o, o, o, o, M, M, o, o, o, o, o],
-            [o, o, o, o, o, o, o, o, M, M, o],
-            [o, o, o, M, o, o, o, o, o, M, o],
-            [o, o, o, M, o, M, M, o, o, o, o],
-            [o, o, o, o, M, M, M, M, o, o, o],
-            [o, o, o, M, M, M, M, M, M, M, o],
-            [o, o, o, M, M, o, M, M, M, o, o],
-            [o, o, o, o, o, o, M, M, o, o, o],
-            [o, M, o, o, o, M, o, o, o, o, o],
-            [o, o, o, o, o, o, o, o, o, o, o]
+            [W, W, W, W, W, W, W, W, W, W, W],
+            [W, W, W, W, L, L, W, W, W, W, W],
+            [W, W, W, W, W, W, W, W, L, L, W],
+            [W, W, W, L, W, W, W, W, W, L, W],
+            [W, W, W, L, W, L, L, W, W, W, W],
+            [W, W, W, W, L, L, L, L, W, W, W],
+            [W, W, W, L, L, L, L, L, L, L, W],
+            [W, W, W, L, L, W, L, L, L, W, W],
+            [W, W, W, W, W, W, L, L, W, W, W],
+            [W, L, W, W, W, L, W, W, W, W, W],
+            [W, W, W, W, W, W, W, W, W, W, W]
         ]
 
-        expected_result = (o + "\n") * 11 + (
-                            o + "\n") * 4 + (M + "\n") * 2 + (o + "\n") * 5 + (
-                            o + "\n") * 8 + (M + "\n") * 2 + (o + "\n") + (
-                            o + "\n") * 3 + (M + "\n") + (o + "\n") * 5 + (M + "\n") + (o + "\n") + (
-                            o + "\n") * 3 + (M + "\n") + (o + "\n") + (M + "\n") * 2 + (o + "\n") * 4 + (
-                            o + "\n") * 4 + (M + "\n") * 4 + (o + "\n") * 3 + (
-                            o + "\n") * 3 + (M + "\n") * 7 + (o + "\n") + (
-                            o + "\n") * 3 + (M + "\n") * 2 + (o + "\n") + (M + "\n") * 3 + (o + "\n") * 2 + (
-                            o + "\n") * 6 + (M + "\n") * 2 + (o + "\n") * 3 + (
-                            o + "\n") + (M + "\n") + (o + "\n") * 3 + (M + "\n") + (o + "\n") * 5 + (
-                            o + "\n") * 11
+        expected_result = (W + "\n") * 11 + (
+                            W + "\n") * 4 + (L + "\n") * 2 + (W + "\n") * 5 + (
+                            W + "\n") * 8 + (L + "\n") * 2 + (W + "\n") + (
+                            W + "\n") * 3 + (L + "\n") + (W + "\n") * 5 + (L + "\n") + (W + "\n") + (
+                            W + "\n") * 3 + (L + "\n") + (W + "\n") + (L + "\n") * 2 + (W + "\n") * 4 + (
+                            W + "\n") * 4 + (L + "\n") * 4 + (W + "\n") * 3 + (
+                            W + "\n") * 3 + (L + "\n") * 7 + (W + "\n") + (
+                            W + "\n") * 3 + (L + "\n") * 2 + (W + "\n") + (L + "\n") * 3 + (W + "\n") * 2 + (
+                            W + "\n") * 6 + (L + "\n") * 2 + (W + "\n") * 3 + (
+                            W + "\n") + (L + "\n") + (W + "\n") * 3 + (L + "\n") + (W + "\n") * 5 + (
+                            W + "\n") * 11
 
         homework.print_board(world)
 
@@ -181,38 +205,37 @@ class TestPrintBoard(unittest.TestCase):
         self.assertEqual(mock_stdout.getvalue(), expected_result)
 
 
-
 class TestPrintReversedBoard(unittest.TestCase):
     @mock.patch("sys.stdout", new_callable=StringIO)
     def test_print_board_eleven(self, mock_stdout):
-        M = "land"
-        o = "water"
+        L = "land"
+        W = "water"
 
         world = [
-            [o, o, o, o, o, o, o, o, o, o, o],
-            [o, o, o, o, M, M, o, o, o, o, o],
-            [o, o, o, o, o, o, o, o, M, M, o],
-            [o, o, o, M, o, o, o, o, o, M, o],
-            [o, o, o, M, o, M, M, o, o, o, o],
-            [o, o, o, o, M, M, M, M, o, o, o],
-            [o, o, o, M, M, M, M, M, M, M, o],
-            [o, o, o, M, M, o, M, M, M, o, o],
-            [o, o, o, o, o, o, M, M, o, o, o],
-            [o, M, o, o, o, M, o, o, o, o, o],
-            [o, o, o, o, o, o, o, o, o, o, o]
+            [W, W, W, W, W, W, W, W, W, W, W],
+            [W, W, W, W, L, L, W, W, W, W, W],
+            [W, W, W, W, W, W, W, W, L, L, W],
+            [W, W, W, L, W, W, W, W, W, L, W],
+            [W, W, W, L, W, L, L, W, W, W, W],
+            [W, W, W, W, L, L, L, L, W, W, W],
+            [W, W, W, L, L, L, L, L, L, L, W],
+            [W, W, W, L, L, W, L, L, L, W, W],
+            [W, W, W, W, W, W, L, L, W, W, W],
+            [W, L, W, W, W, L, W, W, W, W, W],
+            [W, W, W, W, W, W, W, W, W, W, W]
         ]
 
-        expected_result = (o + "\n") * 11 + (
-                            o + "\n") * 5 + (M + "\n") + (o + "\n") * 3 + (M + "\n") + (o + "\n") + (
-                            o + "\n") * 3 + (M + "\n") * 2 + (o + "\n") * 6 + (
-                            o + "\n") * 2 + (M + "\n") * 3 + (o + "\n") + (M + "\n") * 2 + (o + "\n") * 3 + (
-                            o + "\n") + (M + "\n") * 7 + (o + "\n") * 3 + (
-                            o + "\n") * 3 + (M + "\n") * 4 + (o + "\n") * 4 + (
-                            o + "\n") * 4 + (M + "\n") * 2 + (o + "\n") + (M + "\n") + (o + "\n") * 3 + (
-                            o + "\n") + (M + "\n") + (o + "\n") * 5 + (M + "\n") + (o + "\n") * 3 + (
-                            o + "\n") + (M + "\n") * 2 + (o + "\n") * 8 + (
-                            o + "\n") * 5 + (M + "\n") * 2 + (o + "\n") * 4 + (
-                            o + "\n") * 11
+        expected_result = (W + "\n") * 11 + (
+                            W + "\n") * 5 + (L + "\n") + (W + "\n") * 3 + (L + "\n") + (W + "\n") + (
+                            W + "\n") * 3 + (L + "\n") * 2 + (W + "\n") * 6 + (
+                            W + "\n") * 2 + (L + "\n") * 3 + (W + "\n") + (L + "\n") * 2 + (W + "\n") * 3 + (
+                            W + "\n") + (L + "\n") * 7 + (W + "\n") * 3 + (
+                            W + "\n") * 3 + (L + "\n") * 4 + (W + "\n") * 4 + (
+                            W + "\n") * 4 + (L + "\n") * 2 + (W + "\n") + (L + "\n") + (W + "\n") * 3 + (
+                            W + "\n") + (L + "\n") + (W + "\n") * 5 + (L + "\n") + (W + "\n") * 3 + (
+                            W + "\n") + (L + "\n") * 2 + (W + "\n") * 8 + (
+                            W + "\n") * 5 + (L + "\n") * 2 + (W + "\n") * 4 + (
+                            W + "\n") * 11
 
         homework.print_reversed_board(world)
 
@@ -245,15 +268,15 @@ class TestGenerateRandomBoard(unittest.TestCase):
     def test_print_board_randomness(self):
         N = 5
 
-        M = "land"
-        o = "water"
+        L = "land"
+        W = "water"
 
         expected_result = [
-                            [o, o, M, o, o],
-                            [o, o, o, o, M],
-                            [M, o, M, M, o],
-                            [M, o, M, M, o],
-                            [o, M, o, o, o]
+                            [W, W, L, W, W],
+                            [W, W, W, W, L],
+                            [L, W, L, L, W],
+                            [L, W, L, L, W],
+                            [W, L, W, W, W]
                           ]
 
         # Settable seed enables you to intentionally repeat your sequences by reusing the same seed.
@@ -267,77 +290,77 @@ class TestGenerateRandomBoard(unittest.TestCase):
 
 class TestContinentCounter(unittest.TestCase):
     def test_continent_counter_from_zero(self):
-        M = 'land'
-        o = 'water'
+        L = 'land'
+        W = 'water'
         world = [
-            [o, o, o, o, o, o, o, o, o, o, o],
-            [o, o, o, o, M, M, o, o, o, o, o],
-            [o, o, o, o, o, o, o, o, M, M, o],
-            [o, o, o, M, o, o, o, o, o, M, o],
-            [o, o, o, M, o, M, M, o, o, o, o],
-            [o, o, o, o, M, M, M, M, o, o, o],
-            [o, o, o, M, M, M, M, M, M, M, o],
-            [o, o, o, M, M, o, M, M, M, o, o],
-            [o, o, o, o, o, o, M, M, o, o, o],
-            [o, M, o, o, o, M, o, o, o, o, o],
-            [o, o, o, o, o, o, o, o, o, o, o]
+            [W, W, W, W, W, W, W, W, W, W, W],
+            [W, W, W, W, L, L, W, W, W, W, W],
+            [W, W, W, W, W, W, W, W, L, L, W],
+            [W, W, W, L, W, W, W, W, W, L, W],
+            [W, W, W, L, W, L, L, W, W, W, W],
+            [W, W, W, W, L, L, L, L, W, W, W],
+            [W, W, W, L, L, L, L, L, L, L, W],
+            [W, W, W, L, L, W, L, L, L, W, W],
+            [W, W, W, W, W, W, L, L, W, W, W],
+            [W, L, W, W, W, L, W, W, W, W, W],
+            [W, W, W, W, W, W, W, W, W, W, W]
         ]
 
         self.assertEqual(homework.continent_counter(world, 0, 0), 0)
 
     def test_continent_counter_from_number(self):
-        M = 'land'
-        o = 'water'
+        L = 'land'
+        W = 'water'
         world = [
-            [o, o, o, o, o, o, o, o, o, o, o],
-            [o, o, o, o, M, M, o, o, o, o, o],
-            [o, o, o, o, o, o, o, o, M, M, o],
-            [o, o, o, M, o, o, o, o, o, M, o],
-            [o, o, o, M, o, M, M, o, o, o, o],
-            [o, o, o, o, M, M, M, M, o, o, o],
-            [o, o, o, M, M, M, M, M, M, M, o],
-            [o, o, o, M, M, o, M, M, M, o, o],
-            [o, o, o, o, o, o, M, M, o, o, o],
-            [o, M, o, o, o, M, o, o, o, o, o],
-            [o, o, o, o, o, o, o, o, o, o, o]
+            [W, W, W, W, W, W, W, W, W, W, W],
+            [W, W, W, W, L, L, W, W, W, W, W],
+            [W, W, W, W, W, W, W, W, L, L, W],
+            [W, W, W, L, W, W, W, W, W, L, W],
+            [W, W, W, L, W, L, L, W, W, W, W],
+            [W, W, W, W, L, L, L, L, W, W, W],
+            [W, W, W, L, L, L, L, L, L, L, W],
+            [W, W, W, L, L, W, L, L, L, W, W],
+            [W, W, W, W, W, W, L, L, W, W, W],
+            [W, L, W, W, W, L, W, W, W, W, W],
+            [W, W, W, W, W, W, W, W, W, W, W]
         ]
 
         self.assertEqual(homework.continent_counter(world, 5, 5), 23)
 
     def test_continent_counter_border_edge(self):
-        M = 'land'
-        o = 'water'
+        L = 'land'
+        W = 'water'
         world = [
-            [o, o, o, o, o, o, o, o, o, o, o],
-            [o, o, o, o, M, M, o, o, o, o, o],
-            [o, o, o, o, o, o, o, o, M, M, o],
-            [o, o, o, M, o, o, o, o, o, M, o],
-            [o, o, o, M, o, M, M, o, o, o, o],
-            [o, o, o, o, M, M, M, M, o, o, o],
-            [o, o, o, M, M, M, M, M, M, M, M],
-            [o, o, o, M, M, o, M, M, M, o, o],
-            [o, o, o, o, o, o, M, M, o, o, o],
-            [o, M, o, o, o, M, o, o, o, o, o],
-            [o, o, o, o, o, o, o, o, o, o, o]
+            [W, W, W, W, W, W, W, W, W, W, W],
+            [W, W, W, W, L, L, W, W, W, W, W],
+            [W, W, W, W, W, W, W, W, L, L, W],
+            [W, W, W, L, W, W, W, W, W, L, W],
+            [W, W, W, L, W, L, L, W, W, W, W],
+            [W, W, W, W, L, L, L, L, W, W, W],
+            [W, W, W, L, L, L, L, L, L, L, L],
+            [W, W, W, L, L, W, L, L, L, W, W],
+            [W, W, W, W, W, W, L, L, W, W, W],
+            [W, L, W, W, W, L, W, W, W, W, W],
+            [W, W, W, W, W, W, W, W, W, W, W]
         ]
 
         self.assertEqual(homework.continent_counter(world, 5, 5), 24)
 
     def test_continent_counter_n_times_m(self):
-        M = 'land'
-        o = 'water'
+        L = 'land'
+        W = 'water'
         world = [
-            [o, o, o, o, o, o, o, o, o, o],
-            [o, o, o, o, M, M, o, o, o, o],
-            [o, o, o, o, o, o, o, o, M, M],
-            [o, o, o, M, o, o, o, o, o, M],
-            [o, o, o, M, o, M, M, o, o, o],
-            [o, o, o, o, M, M, M, M, o, o],
-            [o, o, o, M, M, M, M, M, M, M],
-            [o, o, o, M, M, o, M, M, M, o],
-            [o, o, o, o, o, o, M, M, o, o],
-            [o, M, o, o, o, M, o, o, o, o],
-            [o, o, o, o, o, o, o, o, o, o]
+            [W, W, W, W, W, W, W, W, W, W],
+            [W, W, W, W, L, L, W, W, W, W],
+            [W, W, W, W, W, W, W, W, L, L],
+            [W, W, W, L, W, W, W, W, W, L],
+            [W, W, W, L, W, L, L, W, W, W],
+            [W, W, W, W, L, L, L, L, W, W],
+            [W, W, W, L, L, L, L, L, L, L],
+            [W, W, W, L, L, W, L, L, L, W],
+            [W, W, W, W, W, W, L, L, W, W],
+            [W, L, W, W, W, L, W, W, W, W],
+            [W, W, W, W, W, W, W, W, W, W]
         ]
 
         self.assertEqual(homework.continent_counter(world, 5, 5), 23)
@@ -345,20 +368,20 @@ class TestContinentCounter(unittest.TestCase):
 
 class TestFindContinents(unittest.TestCase):
     def test_find_continets_no_border_edge(self):
-        M = 'land'
-        o = 'water'
+        L = 'land'
+        W = 'water'
         world = [
-            [o, o, o, o, o, o, o, o, o, o, o],
-            [o, o, o, o, M, M, o, o, o, o, o],
-            [o, o, o, o, o, o, o, o, M, M, o],
-            [o, o, o, M, o, o, o, o, o, M, o],
-            [o, o, o, M, o, M, M, o, o, o, o],
-            [o, o, o, o, M, M, M, M, o, o, o],
-            [o, o, o, M, M, M, M, M, M, M, o],
-            [o, o, o, M, M, o, M, M, M, o, o],
-            [o, o, o, o, o, o, M, M, o, o, o],
-            [o, M, o, o, o, M, o, o, o, o, o],
-            [o, o, o, o, o, o, o, o, o, o, o]
+            [W, W, W, W, W, W, W, W, W, W, W],
+            [W, W, W, W, L, L, W, W, W, W, W],
+            [W, W, W, W, W, W, W, W, L, L, W],
+            [W, W, W, L, W, W, W, W, W, L, W],
+            [W, W, W, L, W, L, L, W, W, W, W],
+            [W, W, W, W, L, L, L, L, W, W, W],
+            [W, W, W, L, L, L, L, L, L, L, W],
+            [W, W, W, L, L, W, L, L, L, W, W],
+            [W, W, W, W, W, W, L, L, W, W, W],
+            [W, L, W, W, W, L, W, W, W, W, W],
+            [W, W, W, W, W, W, W, W, W, W, W]
         ]
 
         expected_result = {'continent-row-1-column-9': 1, 'continent-row-3-column-3': 23, 'continent-row-4-column-1': 2,
@@ -367,20 +390,20 @@ class TestFindContinents(unittest.TestCase):
         self.assertEqual(homework.find_continets(world), expected_result)
 
     def test_find_continets_border_edge(self):
-        M = 'land'
-        o = 'water'
+        L = 'land'
+        W = 'water'
         world = [
-            [o, o, o, o, o, o, o, o, o, o, o],
-            [o, o, o, o, M, M, o, o, o, o, o],
-            [o, o, o, o, o, o, o, o, M, M, o],
-            [o, o, o, M, o, o, o, o, o, M, o],
-            [o, o, o, M, o, M, M, o, o, o, o],
-            [o, o, o, o, M, M, M, M, o, o, o],
-            [o, o, o, M, M, M, M, M, M, M, M],
-            [o, o, o, M, M, o, M, M, M, o, o],
-            [o, o, o, o, o, o, M, M, o, o, o],
-            [o, M, o, o, o, M, o, o, o, o, o],
-            [o, o, o, o, o, o, o, o, o, o, o]
+            [W, W, W, W, W, W, W, W, W, W, W],
+            [W, W, W, W, L, L, W, W, W, W, W],
+            [W, W, W, W, W, W, W, W, L, L, W],
+            [W, W, W, L, W, W, W, W, W, L, W],
+            [W, W, W, L, W, L, L, W, W, W, W],
+            [W, W, W, W, L, L, L, L, W, W, W],
+            [W, W, W, L, L, L, L, L, L, L, L],
+            [W, W, W, L, L, W, L, L, L, W, W],
+            [W, W, W, W, W, W, L, L, W, W, W],
+            [W, L, W, W, W, L, W, W, W, W, W],
+            [W, W, W, W, W, W, W, W, W, W, W]
         ]
 
         expected_result = {'continent-row-1-column-9': 1, 'continent-row-3-column-3': 24, 'continent-row-4-column-1': 2,
@@ -389,20 +412,20 @@ class TestFindContinents(unittest.TestCase):
         self.assertEqual(homework.find_continets(world), expected_result)
 
     def test_find_continets_n_times_m(self):
-        M = 'land'
-        o = 'water'
+        L = 'land'
+        W = 'water'
         world = [
-            [o, o, o, o, o, o, o, o, o, o],
-            [o, o, o, o, M, M, o, o, o, o],
-            [o, o, o, o, o, o, o, o, M, M],
-            [o, o, o, M, o, o, o, o, o, M],
-            [o, o, o, M, o, M, M, o, o, o],
-            [o, o, o, o, M, M, M, M, o, o],
-            [o, o, o, M, M, M, M, M, M, M],
-            [o, o, o, M, M, o, M, M, M, o],
-            [o, o, o, o, o, o, M, M, o, o],
-            [o, M, o, o, o, M, o, o, o, o],
-            [o, o, o, o, o, o, o, o, o, o]
+            [W, W, W, W, W, W, W, W, W, W],
+            [W, W, W, W, L, L, W, W, W, W],
+            [W, W, W, W, W, W, W, W, L, L],
+            [W, W, W, L, W, W, W, W, W, L],
+            [W, W, W, L, W, L, L, W, W, W],
+            [W, W, W, W, L, L, L, L, W, W],
+            [W, W, W, L, L, L, L, L, L, L],
+            [W, W, W, L, L, W, L, L, L, W],
+            [W, W, W, W, W, W, L, L, W, W],
+            [W, L, W, W, W, L, W, W, W, W],
+            [W, W, W, W, W, W, W, W, W, W]
         ]
 
         expected_result = {'continent-row-1-column-9': 1, 'continent-row-3-column-3': 23, 'continent-row-4-column-1': 2,
@@ -413,37 +436,37 @@ class TestFindContinents(unittest.TestCase):
 
 class TestFindLargestNContinents(unittest.TestCase):
     def setUp(self):
-        M = 'land'
-        o = 'water'
+        L = 'land'
+        W = 'water'
         self.world = [
-            [o, o, o, o, o, o, o, o, o, o, o],
-            [o, o, o, o, M, M, o, o, o, o, o],
-            [o, o, o, o, o, o, o, o, M, M, o],
-            [o, o, o, M, o, o, o, o, o, M, o],
-            [o, o, o, M, o, M, M, o, o, o, o],
-            [o, o, o, o, M, M, M, M, o, o, o],
-            [o, o, o, M, M, M, M, M, M, M, M],
-            [o, o, o, M, M, o, M, M, M, o, o],
-            [o, o, o, o, o, o, M, M, o, o, o],
-            [o, M, o, o, o, M, o, o, o, o, o],
-            [o, o, o, o, o, o, o, o, o, o, o]
+            [W, W, W, W, W, W, W, W, W, W, W],
+            [W, W, W, W, L, L, W, W, W, W, W],
+            [W, W, W, W, W, W, W, W, L, L, W],
+            [W, W, W, L, W, W, W, W, W, L, W],
+            [W, W, W, L, W, L, L, W, W, W, W],
+            [W, W, W, W, L, L, L, L, W, W, W],
+            [W, W, W, L, L, L, L, L, L, L, L],
+            [W, W, W, L, L, W, L, L, L, W, W],
+            [W, W, W, W, W, W, L, L, W, W, W],
+            [W, L, W, W, W, L, W, W, W, W, W],
+            [W, W, W, W, W, W, W, W, W, W, W]
         ]
 
     def tearDown(self):
-        M = 'land'
-        o = 'water'
+        L = 'land'
+        W = 'water'
         self.world = [
-            [o, o, o, o, o, o, o, o, o, o, o],
-            [o, o, o, o, M, M, o, o, o, o, o],
-            [o, o, o, o, o, o, o, o, M, M, o],
-            [o, o, o, M, o, o, o, o, o, M, o],
-            [o, o, o, M, o, M, M, o, o, o, o],
-            [o, o, o, o, M, M, M, M, o, o, o],
-            [o, o, o, M, M, M, M, M, M, M, M],
-            [o, o, o, M, M, o, M, M, M, o, o],
-            [o, o, o, o, o, o, M, M, o, o, o],
-            [o, M, o, o, o, M, o, o, o, o, o],
-            [o, o, o, o, o, o, o, o, o, o, o]
+            [W, W, W, W, W, W, W, W, W, W, W],
+            [W, W, W, W, L, L, W, W, W, W, W],
+            [W, W, W, W, W, W, W, W, L, L, W],
+            [W, W, W, L, W, W, W, W, W, L, W],
+            [W, W, W, L, W, L, L, W, W, W, W],
+            [W, W, W, W, L, L, L, L, W, W, W],
+            [W, W, W, L, L, L, L, L, L, L, L],
+            [W, W, W, L, L, W, L, L, L, W, W],
+            [W, W, W, W, W, W, L, L, W, W, W],
+            [W, L, W, W, W, L, W, W, W, W, W],
+            [W, W, W, W, W, W, W, W, W, W, W]
         ]
 
     def test_find_largest_n_continents_zero(self):
@@ -500,6 +523,14 @@ class TestCharFrequencyDictFromAlphabet(unittest.TestCase):
 
         self.assertEqual(homework.char_frequency_dict_from_alphabet(read_data), expected_result)
 
+    def test_char_frequency_list_from_alphabet_non_alpha(self):
+        test_text = "Ciao. 1 50170 Cristina!!!"
+        expected_result = {'a': 2, 'b': 0, 'c': 2, 'd': 0, 'e': 0, 'f': 0, 'g': 0, 'h': 0, 'i': 3,
+                           'j': 0, 'k': 0, 'l': 0, 'm': 0, 'n': 1, 'o': 1, 'p': 0, 'q': 0, 'r': 1,
+                           's': 1, 't': 1, 'u': 0, 'v': 0, 'w': 0, 'x': 0, 'y': 0, 'z': 0}
+
+        self.assertEqual(homework.char_frequency_dict_from_alphabet(test_text), expected_result)
+
 
 class TestCharFrequencyDictOnlyPresentAlphas(unittest.TestCase):
     def test_char_frequency_dict_only_present_alphas_string(self):
@@ -524,6 +555,13 @@ class TestCharFrequencyDictOnlyPresentAlphas(unittest.TestCase):
 
         self.assertEqual(homework.char_frequency_dict_only_present_alphas(read_data), expected_result)
 
+    def test_char_frequency_dict_only_present_alphas_non_alpha(self):
+        test_text = "Ciao. 1 50170 Cristina!!!"
+        expected_result = {'a': 2, 'c': 2, 'i': 3, 'n': 1, 'o': 1, 'r': 1, 's': 1, 't': 1}
+
+        self.assertEqual(homework.char_frequency_dict_only_present_alphas(test_text), expected_result)
+
+
 class TestSong(unittest.TestCase):
     @mock.patch('sys.stdout', new_callable=StringIO)
     def test_sing_me_a_song(self, mock_stdout):
@@ -536,6 +574,56 @@ class TestSong(unittest.TestCase):
         happy_bday = homework.Song(lyric)
         happy_bday.sing_me_a_song()
         self.assertEqual(mock_stdout.getvalue(), expected_result)
+
+
+class TestDictSortValue(unittest.TestCase):
+    def test_sort_dict_by_numeric_value_numbers(self):
+        input_dict = {'c': 24, 'z': 1, 'a': 100, 'r': 6612, 'h': 7890}
+        expected_result = {'h': 7890, 'r': 6612, 'a': 100, 'c': 24, 'z': 1}
+
+        self.assertEqual(homework.sort_dict_by_numeric_value(input_dict), expected_result)
+
+
+class TestDictSortKey(unittest.TestCase):
+    def test_sort_dict_by_key(self):
+        input_dict = {'c': 24, 'z': 1, 'a': 100, 'r': 6612, 'h': 7890}
+        expected_result = {'a': 100, 'c': 24, 'h': 7890, 'r': 6612, 'z': 1}
+
+        self.assertEqual(homework.sort_dict_by_key(input_dict), expected_result)
+
+
+class TestPerson(unittest.TestCase):
+    def test_person_with_country(self):
+        person1 = homework.Person('Cristina', 'Tarantino', 'Italy')
+
+        self.assertEqual(person1.firstname, 'Cristina')
+        self.assertEqual(person1.lastname, 'Tarantino')
+        self.assertEqual(person1.country, 'Italy')
+
+    def test_person_without_country(self):
+        person1 = homework.Person('Cristina', 'Tarantino')
+
+        self.assertEqual(person1.firstname, 'Cristina')
+        self.assertEqual(person1.lastname, 'Tarantino')
+        self.assertEqual(person1.country, None)
+
+
+class TestUser(unittest.TestCase):
+    def test_person_with_country(self):
+        person1 = homework.User('Cristina', 'Tarantino', 'cristina@tarantino.io', 'Italy')
+
+        self.assertEqual(person1.firstname, 'Cristina')
+        self.assertEqual(person1.lastname, 'Tarantino')
+        self.assertEqual(person1.country, 'Italy')
+        self.assertEqual(person1.email, 'cristina@tarantino.io')
+        self.assertEqual(person1.uid, 1)
+
+    def test_person_without_country(self):
+        person2 = homework.User('Cristina2', 'Tarantino2', 'cristina@tarantino.io')
+        person3 = homework.User('Cristina3', 'Tarantino3', 'cristina@tarantino.io')
+
+        self.assertEqual(person2.uid, 2)
+        self.assertEqual(person3.uid, 3)
 
 
 if __name__ == '__main__':
