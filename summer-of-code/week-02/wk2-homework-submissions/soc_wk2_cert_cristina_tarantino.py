@@ -134,10 +134,7 @@ def ceaser_cypher(operation):
 
     for m in message:
         if m.isalpha():
-            if m.islower():
-                offset = LOWER_ALPHABET_LOW_OFFSET
-            else:
-                offset = LOWER_ALPHABET_UPP_OFFSET
+            offset = LOWER_ALPHABET_LOW_OFFSET if m.islower() else LOWER_ALPHABET_UPP_OFFSET
 
             letter_to_number = ord(m) - offset
             encrypted_m = operation(letter_to_number, shifting_num) % TOTAL_ALPHABET_NUM
