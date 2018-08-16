@@ -1,6 +1,11 @@
-if (typeof Game === 'undefined') {
-  var Game = {};
-}
+// TODO Add testing
+// TODO Add more comments
+// TODO Add interactivity functionality
+// TODO Restart the game
+// TODO Add a state for the world board
+// TODO Make the game more pleasant to look at
+
+var Game = Game || {};
 
 Game.model = {
   generateRandomBoard: function (n, m) {
@@ -107,8 +112,6 @@ Game.view = {
   init: function (document) {
     var worldArray = [];
 
-    console.log('init');
-
     // Access the form element...
     var form = document.querySelector("#worldSize");
 
@@ -140,6 +143,8 @@ Game.view = {
 
       continentsElem.appendChild(fragment1);
       top2ContinentsElem.appendChild(fragment2);
+
+      document.querySelector("#continents_counter_result").classList.toggle('hide');
     });
 
     // Attach the event listener
@@ -161,13 +166,11 @@ Game.view = {
 
       document.getElementById('continents_counter').classList.toggle("hide");
 
-      console.log(worldArray);
-
       function generateWorldElemFromArray(worldArray) {
         // invisible DOM so you don't interact with the DOM too much
-        // because every DOM interaction is a performace hit
+        // because every DOM interaction is a performance hit
         var fragment = document.createDocumentFragment();
-
+        
         worldArray.forEach(function (row, y) {
           var rowElem = document.createElement('tr');
 
@@ -175,6 +178,7 @@ Game.view = {
             var cellElem = document.createElement('td');
             var checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
+            checkbox.disabled = true;
             checkbox.id = 'y' + y + "x" + x;
             checkbox.coordinates = {
               y: y,
