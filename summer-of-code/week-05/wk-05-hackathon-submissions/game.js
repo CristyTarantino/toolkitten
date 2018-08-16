@@ -5,7 +5,7 @@ function generate_random_board(n, m) {
 
   if (+n && +m) {
      for (var i=0; i<m; i++){
-        world[i] = []
+        world[i] = [];
         for (var j=0; j<n; j++) {
           world[i][j] = Math.round(Math.random());
         }
@@ -17,62 +17,70 @@ function generate_random_board(n, m) {
   return world;
 }
 
-var ciao = generate_random_board(5);
-console.log('log', ciao);
+var ciao = generate_random_board(5, 10);
+console.log("log", ciao);
 
 function continent_counter(world, x, y) {
-  console.log(world, x, y, world.length, world[0].length);
-  if (y >= 0 && y < world.length && x >= 0 && x < world[0].length) {
-    console.log('if');
-    if (world[y][x] !== 1) {
-      return 0;
-    }
-
+  if (y >= 0 &&
+      y < world.length &&
+      x >= 0 &&
+      x < world[0].length &&
+      world[y][x] === 1) {
+    
     var size = 1;
 
     // flag that land as counted
     world[y][x] = -1;
 
     // row above left column
-    console.log("1 continent_counter", x - 1, y - 1);
     size += continent_counter(world, x - 1, y - 1);
 
     // row above above column
-    console.log("2 continent_counter");
     size += continent_counter(world, x, y - 1);
 
+
     // row above right column
-    console.log("3 continent_counter");
     size += continent_counter(world, x + 1, y - 1);
 
     // same row left column
-    console.log("4 continent_counter");
     size += continent_counter(world, x - 1, y);
 
     // same row right column
-    console.log("5 continent_counter");
     size += continent_counter(world, x + 1, y);
 
+
     // row below left column
-    console.log("6 continent_counter");
     size += continent_counter(world, x - 1, y + 1);
 
     // row below below column
-    console.log("7 continent_counter");
     size += continent_counter(world, x, y + 1);
 
     // row below right column
-    console.log("8 continent_counter");
     size += continent_counter(world, x + 1, y + 1);
 
     return size;
   }
-  else {
-    console.log('else');
-    return 0;
-  }
+  
+  return 0;
 }
 
+
+function find_continets(world) {
+  console.log(world);
+  var continents = {};
+  
+  for(var i=0; i<world.length; i++){
+    for(var j=0; i<world[0].length; j++) {
+      var curr_cont_size = continent_counter(world, j, i);
+      
+      if(curr_cont_size){
+        continents["continent-row-" + i + "-column-" + j] = curr_cont_size;
+      }
+    }
+  }
+  
+  return continents;
+}
 
 
 var ciao_2 = ciao.slice(0);
