@@ -153,19 +153,19 @@ for r in rows:
 
 print("\nEXERCISE \"99 Bottles of Beer on the Wall.\"")
 
-starter_num = 99
+BEER_TOTAL = 99
 
 # print the lyrics title
-print("\n", (" Lyrics of the song %s Bottles of Beer " % starter_num).center(50, "🍺"), "\n")
+print("\n", (" Lyrics of the song %s Bottles of Beer " % BEER_TOTAL).center(50, "🍺"), "\n")
 
-# print the lyrics in the loop from 99 to 0
-print(" ".join(str("\n" + str(i) + " bottles of beer on the wall, " + str(i) + " bottles of beer."
-      "\nTake one down and pass it around, " + str(i - 1) + " bottles of beer on the wall.\n")
-               for i in range(starter_num, 0, -1)))
+for i in range(BEER_TOTAL, 0, -1):
+    # print the lyrics in the loop from 99 to 0
+    print("\n", i, "bottles of beer on the wall,", i, "bottles of beer."
+          "\nTake one down and pass it around,", i - 1, "bottles of beer on the wall.\n")
 
 # print the end of the lyrics
-print("No more bottles of beer on the wall, no more bottles of beer. "
-      "\nGo to the store and buy some more, " + str(starter_num) + " bottles of beer on the wall.")
+print("No more bottles of beer on the wall, no more bottles of beer."
+      "\nGo to the store and buy some more,", BEER_TOTAL, "bottles of beer on the wall.")
 
 
 # 13. Deaf grandma.
@@ -243,7 +243,7 @@ while True:
         if year_one >= year_two:
             raise ValueError("\nThe starting year must be greater than the ending year!")
 
-    # if it is not possible acknowledge the user and continue to prompt him to insert a number
+    # if it is not possible acknowledge the user and continue to prompt her to insert a number
     except ValueError as error:
         if error:
             print(error)
@@ -276,21 +276,25 @@ print("\nEXERCISE FROM YOUR LIFE")
 
 
 def rotate_left(array, rotations_num):
-    a_length = len(array)
-    new_array = [None]*a_length
-    pos_to_left = rotations_num
+    return array[rotations_num:] + array[:rotations_num]
 
-    i = 0
-    while i < a_length:
-        pos_to_left = pos_to_left if pos_to_left != 0 else a_length
-        to_index = a_length - pos_to_left
-        new_array[to_index] = array[i]
-        pos_to_left -= 1
-        i += 1
+# O(n) complexity alternative
+# def rotate_left(array, rotations_num):
+#     a_length = len(array)
+#     new_array = [None]*a_length
+#     pos_to_left = rotations_num
+#
+#     i = 0
+#     while i < a_length:
+#         pos_to_left = pos_to_left if pos_to_left != 0 else a_length
+#         to_index = a_length - pos_to_left
+#         new_array[to_index] = array[i]f
+#         pos_to_left -= 1
+#         i += 1
+#
+#     return new_array
 
-    return new_array
-
-# alternative as suggested by mentor
+# O(n) complexity alternative suggested by mentor
 # The method above is the mere translation from JS to Python.
 # In Python array[-2] is a valid operation as lists are circular linked list (I presume)
 # In JS array[-2] is not possible so you have to reset the index
