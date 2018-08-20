@@ -322,9 +322,11 @@ print("\nOriginal dictionary: ", my_dict)
 
 my_dict["new_key"] = my_dict["a"]
 
+print("\nModified dictionary - added 'new_key': ", my_dict)
+
 del (my_dict["a"])
 
-print("\nModified dictionary: ", my_dict)
+print("\nModified dictionary - deleted key 'a': ", my_dict)
 
 
 # 13. Redo the frequency distribution of alice_in_wonderland.txt and save your result in a dictionary.
