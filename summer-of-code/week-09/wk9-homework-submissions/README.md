@@ -2,4 +2,4 @@
 
 ## Week 9 Blockchain Homework
 
-Please find the unlisted video of Solidity Dev Environment Set Up at https://www.youtube.com/watch?v=uKtln8upB5g
+Please find the unlisted video of Solidity Dev Environment Set Up at https://youtu.be/uKtln8upB5g
