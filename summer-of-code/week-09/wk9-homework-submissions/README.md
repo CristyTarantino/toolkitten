@@ -10,7 +10,7 @@ Create a `password.sec` file in your `~/blockchain/private` and type in the prev
 
 From the `wk9-homework-submissions` folder run:
 
-`startmynode.sh`
+`./startmynode.sh`
 
 ### 5. Initializing console for private node
 
@@ -46,7 +46,7 @@ https://github.com/ethereum/wiki/wiki/JavaScript-API
 
    `web3.fromWei(eth.getBalance(eth.coinbase), 'ether')`
 
-1. Now get balance of another account:
+1. Now get balance of another account:exit
 
    `web3.fromWei(eth.getBalance(eth.accounts[1]), 'ether')`
 
@@ -80,3 +80,4 @@ To stop your private node's console you can type `exit`
 * https://github.com/ethereum/wiki/wiki/JavaScript-API
 * https://github.com/ethereum/go-ethereum/wiki/Command-Line-Options
 * https://arvanaghi.com/blog/explaining-the-genesis-block-in-ethereum/
+* https://medium.com/compound-finance/the-beginners-guide-to-using-an-ethereum-test-network-95bbbc85fc1d
