@@ -1,8 +1,9 @@
 # file.txt
 
 loving
-eclipsing i don't have the file.
+eclipsing I don't have the file.
 contemplating coding coding typing LOL creating
+reticulating splines
 
 # test the split() method
 # testing non-alphabetical characters
