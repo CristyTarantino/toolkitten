@@ -1,0 +1,1 @@
+geth -networkid 2040 -mine -minerthreads 1 -datadir "./private" -nodiscover -rpc -rpcport "8545" -port "30303" -rpccorsdomain "*" -nat "any" -rpcapi eth,web3,personal,net -unlock 0 -password ~/blockchain/private/password.sec -ipcpath "./private/geth.ipc"
